@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "qsi.schema.json",
+  "type": "object",
+  "required": ["interaction_type", "initiator", "participants", "input_refs", "requested_transition", "logical_time"],
+  "properties": {
+    "interaction_type": { "type": "string" },
+    "initiator": { "type": "string" },
+    "participants": { "type": "array", "items": { "type": "string" } },
+    "input_refs": { "type": "array", "items": { "type": "string" } },
+    "requested_transition": { "type": "object" },
+    "logical_time": { "type": "integer" }
+  },
+  "additionalProperties": false
+}
