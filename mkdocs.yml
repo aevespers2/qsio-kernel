@@ -13,9 +13,7 @@ nav:
   - Public API: api.md
   - Developer onboarding: onboarding.md
   - Security and trust boundaries: security.md
-  - Task chain: ../taskchain.md
-  - Release plan: ../release.md
-  - Changelog: ../changelog.md
+  - Scope and release governance: governance.md
 
 markdown_extensions:
   - tables
