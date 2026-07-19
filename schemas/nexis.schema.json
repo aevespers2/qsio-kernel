@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "nexis.schema.json",
+  "type": "object",
+  "required": ["nexis_id", "participants", "relation_type", "permissions", "created_by_qsio", "status"],
+  "properties": {
+    "nexis_id": { "type": "string" },
+    "participants": { "type": "array", "items": { "type": "string" } },
+    "relation_type": { "type": "string" },
+    "permissions": { "type": "object" },
+    "covenant_hash": { "type": ["string", "null"] },
+    "created_by_qsio": { "type": "string" },
+    "status": { "type": "string" }
+  },
+  "additionalProperties": false
+}
