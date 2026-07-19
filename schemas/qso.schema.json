@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "qso.schema.json",
+  "type": "object",
+  "required": ["qso_id", "genome_version", "canon", "state", "permissions", "created_at"],
+  "properties": {
+    "qso_id": { "type": "string" },
+    "genome_version": { "type": "string" },
+    "canon": { "type": "object" },
+    "state": { "type": "object" },
+    "permissions": { "type": "object" },
+    "created_at": { "type": "string" }
+  },
+  "additionalProperties": false
+}
