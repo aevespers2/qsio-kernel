@@ -1,0 +1,26 @@
+site_name: QSIO Kernel
+site_description: Bounded, deterministic QSO/QSIO semantic kernel reference documentation
+repo_url: https://github.com/aevespers2/qsio-kernel
+repo_name: aevespers2/qsio-kernel
+
+theme:
+  name: mkdocs
+
+nav:
+  - Overview: index.md
+  - Architecture: architecture.md
+  - Design and invariants: design.md
+  - Public API: api.md
+  - Developer onboarding: onboarding.md
+  - Security and trust boundaries: security.md
+  - Task chain: ../taskchain.md
+  - Release plan: ../release.md
+  - Changelog: ../changelog.md
+
+markdown_extensions:
+  - tables
+  - fenced_code
+  - toc:
+      permalink: true
+
+strict: true
