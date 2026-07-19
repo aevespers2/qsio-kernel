@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "witness.schema.json",
+  "type": "object",
+  "required": ["witness_id", "verifier", "verified", "summary_hash", "evidence_refs", "observed_at", "notes"],
+  "properties": {
+    "witness_id": { "type": "string" },
+    "verifier": { "type": "string" },
+    "verified": { "type": "boolean" },
+    "summary_hash": { "type": "string" },
+    "evidence_refs": { "type": "array", "items": { "type": "string" } },
+    "observed_at": { "type": "string" },
+    "notes": { "type": "string" }
+  },
+  "additionalProperties": false
+}
