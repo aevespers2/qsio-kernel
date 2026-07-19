@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "qsio.schema.json",
+  "type": "object",
+  "required": ["qsio_id", "qsi", "pre_state_hashes", "proposed_transitions", "accepted_transitions", "witnesses", "outcome", "reason_codes", "parent_qsio_hashes", "created_at", "content_hash"],
+  "properties": {
+    "qsio_id": { "type": "string" },
+    "qsi": { "type": "object" },
+    "pre_state_hashes": { "type": "object" },
+    "proposed_transitions": { "type": "array" },
+    "accepted_transitions": { "type": "array" },
+    "witnesses": { "type": "array" },
+    "outcome": { "type": "string" },
+    "reason_codes": { "type": "array", "items": { "type": "string" } },
+    "parent_qsio_hashes": { "type": "array", "items": { "type": "string" } },
+    "created_at": { "type": "string" },
+    "content_hash": { "type": "string" }
+  },
+  "additionalProperties": false
+}
