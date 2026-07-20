@@ -2,23 +2,43 @@ site_name: QSIO Kernel
 site_description: Bounded, deterministic QSO/QSIO semantic kernel reference documentation
 repo_url: https://github.com/aevespers2/qsio-kernel
 repo_name: aevespers2/qsio-kernel
+edit_uri: edit/main/docs/
+strict: true
+
+watch:
+  - README.md
+  - taskchain.md
+  - release.md
+  - changelog.md
 
 theme:
   name: mkdocs
 
 nav:
   - Overview: index.md
-  - Architecture: architecture.md
-  - Design and invariants: design.md
-  - Public API: api.md
-  - Developer onboarding: onboarding.md
-  - Security and trust boundaries: security.md
-  - Scope and release governance: governance.md
+  - Architecture:
+      - System architecture: architecture.md
+      - A.L.I.S.T.A.I.R.E. integration: alistaire-integration.md
+      - Ontology: ontology.md
+      - Terminology: terminology.md
+  - Design:
+      - Contracts and invariants: design.md
+      - Lifecycle: lifecycle.md
+      - Public API: api.md
+  - Development:
+      - Developer onboarding: onboarding.md
+      - Operations and recovery: operations.md
+  - Assurance:
+      - Security and trust boundaries: security.md
+      - Threat model: threat-model.md
+      - Scope and release governance: governance.md
+  - Decisions:
+      - ADR 0001 — Kernel boundaries: adr/0001-kernel-boundaries.md
+      - ADR 0002 — A.L.I.S.T.A.I.R.E. role: adr/0002-alistaire-kernel-role.md
 
 markdown_extensions:
   - tables
   - fenced_code
+  - attr_list
   - toc:
       permalink: true
-
-strict: true
