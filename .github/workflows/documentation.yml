@@ -1,0 +1,108 @@
+name: Documentation
+
+on:
+  pull_request:
+    paths:
+      - "README.md"
+      - "mkdocs.yml"
+      - "taskchain.md"
+      - "release.md"
+      - "changelog.md"
+      - "docs/**"
+      - ".github/workflows/documentation.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: documentation-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Strict site build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      SUBMITTED_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+
+    steps:
+      - name: Check out submitted source
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.SUBMITTED_SHA }}
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Assert immutable source identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          actual_sha="$(git rev-parse HEAD)"
+          test "$actual_sha" = "$SUBMITTED_SHA"
+          test -z "$(git status --porcelain)"
+          printf 'source_sha=%s\n' "$actual_sha" | tee source-identity.txt
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install pinned documentation tooling
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check "mkdocs==1.6.1"
+          python -m pip freeze | sort | tee documentation-dependencies.txt
+
+      - name: Build documentation strictly
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdocs build --strict --site-dir site
+          test -f site/index.html
+
+      - name: Validate generated-site boundary
+        shell: bash
+        run: |
+          set -euo pipefail
+          ! find site -type f \( \
+            -name '*.pem' -o \
+            -name '*.key' -o \
+            -name '*.p12' -o \
+            -name '*.pfx' -o \
+            -name '.env' -o \
+            -name '.env.*' \
+          \) -print -quit | grep -q .
+          ! grep -RIlE '(BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY|gh[pousr]_[A-Za-z0-9_]{20,}|sk-[A-Za-z0-9_-]{20,})' site
+
+      - name: Record documentation evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          {
+            printf 'repository=%s\n' "$GITHUB_REPOSITORY"
+            printf 'source_sha=%s\n' "$SUBMITTED_SHA"
+            printf 'workflow_run=%s\n' "$GITHUB_RUN_ID"
+            printf 'python=%s\n' "$(python --version 2>&1)"
+            printf 'mkdocs=%s\n' "$(mkdocs --version)"
+            printf 'generated_utc=%s\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          } | tee documentation-evidence.txt
+          find site -type f -print0 | sort -z | xargs -0 sha256sum > site-sha256.txt
+          sha256sum documentation-evidence.txt documentation-dependencies.txt source-identity.txt site-sha256.txt > evidence-sha256.txt
+
+      - name: Upload rendered site and evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: qsio-kernel-documentation-${{ env.SUBMITTED_SHA }}
+          path: |
+            site
+            documentation-evidence.txt
+            documentation-dependencies.txt
+            source-identity.txt
+            site-sha256.txt
+            evidence-sha256.txt
+          if-no-files-found: error
+          retention-days: 14
