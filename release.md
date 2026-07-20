@@ -70,20 +70,23 @@ Not authorized. The current architecture lacks durable storage, independent atte
 - [x] Project overview, architecture, design, API, onboarding, operations, security, governance, and portfolio-integration guides exist in the candidate.
 - [x] Pages-ready navigation exists.
 - [x] Exact-head strict documentation workflow is implemented.
-- [ ] Documentation workflow passes on the final submitted commit.
-- [ ] Rendered-site artifact and digest are recorded.
-- [ ] Internal links and generated-site boundary checks pass.
+- [x] The documentation candidate has passed source-identity assertion and strict MkDocs build.
+- [x] Rendered-site and evidence artifacts are retained with SHA-256 manifests.
+- [x] Internal-link validation and generated-site boundary checks pass in the workflow.
+- [ ] Final review confirms the successful run and artifact correspond to the current immutable pull-request head.
 - [ ] Mermaid source diagrams are reviewed for correctness and fallback readability.
 - [ ] Keyboard, contrast, heading, table, and screen-reader review recorded for the published site.
 - [ ] Published Pages URL, deployment source, and deployment provenance recorded, if Pages is enabled.
 
+Every source change invalidates prior exact-head documentation evidence and requires a new passing run.
+
 ### Provenance and reproducibility
 
-- [ ] Release commit SHA recorded.
+- [ ] Runtime release commit SHA recorded.
 - [ ] Runtime build and test environment recorded.
-- [ ] Documentation source SHA and workflow run recorded.
-- [ ] Artifact hashes recorded.
-- [ ] Build commands recorded.
+- [x] Documentation workflow records source SHA, workflow run, Python version, MkDocs version, and generation time.
+- [x] Documentation artifact contains dependency, source-identity, site-file, and evidence SHA-256 manifests.
+- [x] Documentation build commands are encoded in the reviewed workflow.
 - [ ] Changelog finalized for the release version.
 - [ ] Tag is signed or release-signing limitation is explicitly accepted.
 
