@@ -48,16 +48,17 @@ Completed in the documentation candidate:
 - [x] Architecture decision records for kernel boundaries and proposed portfolio role.
 - [x] Task-chain, release, and changelog alignment.
 - [x] Exact-head documentation workflow implemented.
+- [x] Strict documentation build, source-identity assertion, internal-link validation, generated-site boundary checks, and evidence-artifact upload have passed on the documentation candidate.
 
 Evidence still required before P1 is complete:
 
-- [ ] Exact-head strict documentation build passes on the final submitted commit.
-- [ ] Rendered-site and evidence artifacts are retained and identified.
-- [ ] Internal links and generated-site boundary checks pass.
+- [ ] Final review confirms the successful documentation run and retained artifact correspond to the current immutable pull-request head.
 - [ ] Formal schema fixtures exist for all public records.
 - [ ] Compatibility statement for `0.x` consumers is approved.
 - [ ] Published Pages URL and publication authority are recorded, if Pages is enabled.
 - [ ] Accessibility review is recorded for the published site.
+
+A successful documentation run is valid only for the exact source SHA recorded by that run. Any later source change requires a new passing run.
 
 ## P1A — Canonical portfolio role
 
