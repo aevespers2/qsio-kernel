@@ -6,6 +6,7 @@ on:
       - "README.md"
       - "mkdocs.yml"
       - "taskchain.md"
+      - "punchlist.md"
       - "release.md"
       - "changelog.md"
       - "docs/**"
@@ -57,6 +58,55 @@ jobs:
           python -m pip install --disable-pip-version-check "mkdocs==1.6.1"
           python -m pip freeze | sort | tee documentation-dependencies.txt
 
+      - name: Validate documentation sources and local links
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from __future__ import annotations
+          import re
+          from pathlib import Path
+          from urllib.parse import unquote
+
+          required = [
+              "README.md", "mkdocs.yml", "taskchain.md", "punchlist.md",
+              "release.md", "changelog.md", "docs/index.md",
+              "docs/architecture.md", "docs/alistaire-integration.md",
+              "docs/obstruction-and-gluing.md", "docs/design.md",
+              "docs/lifecycle.md", "docs/api.md", "docs/onboarding.md",
+              "docs/operations.md", "docs/security.md",
+              "docs/threat-model.md", "docs/governance.md",
+              "docs/adr/0001-kernel-boundaries.md",
+              "docs/adr/0002-alistaire-kernel-role.md",
+          ]
+          missing = [path for path in required if not Path(path).is_file()]
+          if missing:
+              raise SystemExit(f"missing required documentation: {missing}")
+
+          pattern = re.compile(r"(?<!!)\[[^\]]+\]\(([^)]+)\)")
+          failures = []
+          sources = [
+              Path("README.md"), Path("taskchain.md"), Path("punchlist.md"),
+              Path("release.md"), Path("changelog.md"),
+              *sorted(Path("docs").rglob("*.md")),
+          ]
+          for source in sources:
+              for raw in pattern.findall(source.read_text(encoding="utf-8")):
+                  target = raw.strip().strip("<>")
+                  if not target or target.startswith("#"):
+                      continue
+                  if re.match(r"^[a-zA-Z][a-zA-Z0-9+.-]*:", target):
+                      continue
+                  target = unquote(target.split("#", 1)[0].split("?", 1)[0])
+                  if target and not (source.parent / target).resolve().exists():
+                      failures.append(f"{source}: {raw}")
+          if failures:
+              raise SystemExit("broken local documentation links:\n" + "\n".join(failures))
+          Path("documentation-source-validation.txt").write_text(
+              "required_files=pass\nlocal_links=pass\n", encoding="utf-8"
+          )
+          PY
+
       - name: Build documentation strictly
         shell: bash
         run: |
@@ -91,7 +141,7 @@ jobs:
             printf 'generated_utc=%s\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
           } | tee documentation-evidence.txt
           find site -type f -print0 | sort -z | xargs -0 sha256sum > site-sha256.txt
-          sha256sum documentation-evidence.txt documentation-dependencies.txt source-identity.txt site-sha256.txt > evidence-sha256.txt
+          sha256sum documentation-evidence.txt documentation-dependencies.txt documentation-source-validation.txt source-identity.txt site-sha256.txt > evidence-sha256.txt
 
       - name: Upload rendered site and evidence
         uses: actions/upload-artifact@v4
@@ -101,6 +151,7 @@ jobs:
             site
             documentation-evidence.txt
             documentation-dependencies.txt
+            documentation-source-validation.txt
             source-identity.txt
             site-sha256.txt
             evidence-sha256.txt
