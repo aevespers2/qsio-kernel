@@ -15,20 +15,25 @@ All notable repository changes should be recorded here. The format is based on K
 - Local operations, evidence-capture, incident-triage, recovery, and rollback runbook.
 - Security posture, threat model, limitations, safe-operation guidance, and future security gates.
 - A.L.I.S.T.A.I.R.E. integration guide aligned with the current Repository `0` proposal/orchestration and Repository `1` capability/canonical-disposition model.
-- Portfolio obstruction and gluing analysis with 18 material incompatibilities, eight pairwise contract edges, and eight required triple-overlap witness groups.
-- Release and integration punch list converting architecture, compatibility, authority, privacy, security, recovery, and publication gaps into bounded P0–P5 work.
-- ADR 0002 proposing the interim portfolio role and identifying canonical-runtime options.
+- Runtime Conformance Boundary Profile defining the candidate neutral-contract → reference-kernel → canonical-runtime split, identity separation, explicit mappings, fixture classes, and triple-overlap witnesses.
+- ADR 0003 proposing `qsio-kernel` as a small deterministic reference-conformance implementation rather than the broad canonical runtime.
+- Portfolio obstruction and gluing analysis with material incompatibilities, pairwise contract edges, and required triple-overlap witness groups.
+- Release and integration punch list converting architecture, compatibility, authority, privacy, security, recovery, conformance, support, and publication gaps into bounded P0–P5 work.
 - Repository task chain and expanded release-readiness plan.
 - Exact-head strict documentation workflow with source-identity assertion, generated-site boundary checks, SHA-256 evidence, and retained rendered-site artifacts.
 
 ### Clarified
 
 - Version `0.1.0` is an in-memory experimental reference kernel, not a production agent platform, autonomous-development control plane, portable device-security system, or hosted service.
-- `qsio-kernel` is a candidate canonical semantic kernel, reference conformance implementation, migration source, or independent research prototype until the portfolio chooses one durable role.
-- The lowest-overlap candidate is a small conformance implementation, but no role has been approved.
-- Repository `0` local proposal state is non-authoritative; execution begins only after Repository `1` or another approved authority admits a task and issues a narrow capability.
-- Local `PermissionSet` data, canon values, witness records, successful transitions, and QSIO hashes do not grant external authority.
-- Local execution outcome, evidence verification, policy evaluation, canonical disposition, and later correction or revocation are separate states.
+- The lowest-overlap candidate role is a small reference-conformance implementation beneath a separately governed neutral contract and an explicitly approved canonical runtime.
+- The conformance candidate does not approve QuantumStateObjects or another repository as the canonical runtime; that decision remains external and blocked.
+- A passing fixture demonstrates agreement only for the exact contract, mapping, fixture set, kernel source, runtime source, and configuration under test.
+- Contract profile, fixture set, genome projection, runtime admission, capability, conformance run, QSI, QSIO, runtime execution, receipt, canonical disposition, correction, revocation, and recovery checkpoint identities must remain distinct.
+- Similarly named QSO/QSI/QSIO fields across repositories are not equivalent without an approved mapping and shared fixtures.
+- Unsupported or lossy mappings fail closed rather than degrading into a warning.
+- Repository `0` local proposal state is non-authoritative; execution begins only after Repository `1` or another approved authority admits a task and issues a narrow capability to a canonical runtime.
+- Local `PermissionSet` data, canon values, witness records, successful transitions, conformance witnesses, and QSIO hashes do not grant external authority.
+- Local execution outcome, conformance result, evidence verification, policy evaluation, canonical disposition, and later correction or revocation are separate states.
 - QSO-GENOMES declarative identity does not create operational admission.
 - QSO-FABRIC experiment aggregation does not create canonical state or redefine kernel hashes and lifecycle semantics.
 - Bridge transport and QSO-STUDIO/AionUi interaction do not create authority by transport or display alone.
@@ -36,16 +41,17 @@ All notable repository changes should be recorded here. The format is based on K
 - Witnesses are generated in process and are not independent attestations or signatures.
 - Permission types exist, but comprehensive capability issuance, revocation, and enforcement are not implemented in the main execution path.
 - Deterministic timestamps provide prototype logical ordering and are not externally verified wall time, freshness, or expiry evidence.
-- Quietus is a local lifecycle control distinct from portfolio freeze, capability revocation, quarantine, emergency stop, and recovery.
+- Quietus is a local lifecycle control distinct from portfolio freeze, capability revocation, quarantine, compatibility-claim withdrawal, emergency stop, and recovery.
 - Persistence, networking, external execution, federation, autonomous spawning, repository modification, and production authority remain outside current scope.
 - A documentation artifact proves renderability of the reviewed source, not runtime correctness, accessibility, compatibility, conformance, or production readiness.
 
 ### Changed
 
-- Expanded the Pages information architecture to include obstruction and gluing analysis alongside ontology, terminology, lifecycle, operations, threat model, integration guidance, and architecture decisions.
-- Reconciled `README.md`, `docs/index.md`, `docs/alistaire-integration.md`, `taskchain.md`, `punchlist.md`, `release.md`, `mkdocs.yml`, and this changelog around current portfolio contracts and unresolved ownership.
-- Added release gates for machine-readable schemas, canonical bytes, reason codes, clock domains, pairwise gluing profiles, triple-overlap witnesses, correction, revocation, privacy, retention, emergency stop, and recovery.
-- No runtime behavior, schema, package interface, adapter, credential, capability, persistence, network route, canonical-state authority, publication, release, or deployment changed in this documentation milestone.
+- Expanded the Pages information architecture to include the runtime conformance boundary and ADR 0003 alongside obstruction and gluing analysis, ontology, terminology, lifecycle, operations, threat model, integration guidance, and architecture decisions.
+- Reconciled `README.md`, `taskchain.md`, `punchlist.md`, `release.md`, `mkdocs.yml`, and this changelog around the candidate reference-conformance role and unresolved neutral-contract/canonical-runtime ownership.
+- Reframed gluing witnesses around QSO-GENOMES → neutral contract → kernel, neutral contract → kernel → canonical runtime, Repository `0` → Repository `1` → canonical runtime, kernel → canonical runtime → Fabric, evidence interpretation → runtime → kernel, transport/review, stop/recovery, and correction/replay triples.
+- Added release gates for canonical runtime identity, neutral mappings, compatibility claims, claim expiry and withdrawal, independent compatibility review, fixture-vector privacy, and mapping-confusion tests.
+- No runtime behavior, schema, package interface, adapter, credential, capability, persistence, network route, canonical-state authority, compatibility claim, publication, release, or deployment changed in this documentation milestone.
 
 ## 0.1.0 — 2026-07-19
 
