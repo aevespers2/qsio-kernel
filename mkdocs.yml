@@ -1,5 +1,5 @@
 site_name: QSIO Kernel
-site_description: Bounded, deterministic QSO/QSIO semantic kernel reference documentation
+site_description: Bounded QSO/QSIO semantic-kernel, portfolio integration, and conformance documentation
 repo_url: https://github.com/aevespers2/qsio-kernel
 repo_name: aevespers2/qsio-kernel
 edit_uri: edit/main/docs/
@@ -8,6 +8,7 @@ strict: true
 watch:
   - README.md
   - taskchain.md
+  - punchlist.md
   - release.md
   - changelog.md
 
@@ -19,6 +20,7 @@ nav:
   - Architecture:
       - System architecture: architecture.md
       - A.L.I.S.T.A.I.R.E. integration: alistaire-integration.md
+      - Obstruction and gluing analysis: obstruction-and-gluing.md
       - Ontology: ontology.md
       - Terminology: terminology.md
   - Design:
