@@ -2,7 +2,7 @@
 
 `qsio-kernel` is a compact Python reference implementation for representing bounded Quantum State Objects and recording their interactions as deterministic, content-addressed QSIO records.
 
-It exists to make state, intent, transition evidence, lifecycle controls, and replay semantics executable and inspectable before those concepts are connected to persistence, external tools, distributed systems, or consequential authority.
+It exists to make state, intent, transition evidence, lifecycle controls, and replay semantics executable and inspectable before those concepts are connected to persistence, external tools, distributed systems, device control, or consequential authority.
 
 ## Current status
 
@@ -13,8 +13,9 @@ It exists to make state, intent, transition evidence, lifecycle controls, and re
 | State | In memory |
 | Interaction model | Explicit QSI requests producing QSIO result records |
 | Integrity | Domain-separated content hashing |
-| Lifecycle | Genesis, active operation, Quietus, witnessed resume |
+| Lifecycle | Genesis, active operation, Quietus, explicit resume |
 | Replay | Deterministic reconstruction from the in-memory ledger |
+| Portfolio role | Candidate semantic kernel or reference conformance implementation |
 | External authority | None |
 | Production readiness | Not claimed |
 
@@ -38,7 +39,7 @@ The implementation deliberately optimizes for clarity, boundedness, and determin
 | Genesis | Authorized in-process creation of a QSO |
 | State mutation | Patch-based transitions over bounded state fields |
 | Validation | Rejects unknown actors and forbidden external-operation keys |
-| Evidence links | Input references carried into transitions and witnesses |
+| Evidence links | Opaque input references carried into transitions and witnesses |
 | Integrity | Domain-separated SHA-256 content hashes |
 | Ledger | Ordered in-memory QSIO records with parent references |
 | Lifecycle control | Quietus blocks ordinary interaction; resume is explicit |
@@ -52,9 +53,9 @@ The kernel does not currently provide:
 - durable or replicated storage;
 - signature-backed identity or independent witnesses;
 - distributed agreement or concurrency safety;
-- production authorization or credential management;
-- network, browser, filesystem, subprocess, model, or payment integration;
-- autonomous learning, task planning, repository modification, deployment, or self-directed spawning; or
+- production authorization, credential management, or canonical state;
+- network, browser, filesystem, subprocess, model, payment, repository, or device integration;
+- autonomous learning, task planning, deployment, or self-directed spawning; or
 - a complete A.L.I.S.T.A.I.R.E. control plane.
 
 The validator's forbidden-operation keys are semantic controls inside this execution path, not an operating-system sandbox.
@@ -63,12 +64,12 @@ The validator's forbidden-operation keys are semantic controls inside this execu
 
 ```mermaid
 flowchart TB
-    D[Caller or demo] --> Q[QSI request]
+    D[Admitted caller or local demo] --> Q[QSI request]
     Q --> K[Validation and execution]
     K --> C[RuntimeContext / Sanctum]
     K --> X[StateTransition]
     K --> W[WitnessRecord]
-    X --> O[QSIO outcome envelope]
+    X --> O[QSIO local outcome]
     W --> O
     C --> O
     O --> L[In-memory ledger]
@@ -78,9 +79,35 @@ flowchart TB
 
 ## A.L.I.S.T.A.I.R.E. relationship
 
-Within the wider A.L.I.S.T.A.I.R.E. endeavor, this repository is presently a **candidate bounded semantic-kernel component**. It may provide deterministic execution and evidence primitives to an external orchestration and governance layer, but it does not own objectives, task authorization, credentials, repository actions, merges, releases, deployments, or emergency authority.
+The current working portfolio model places:
 
-The portfolio still needs to decide whether this repository becomes the canonical low-level runtime, a conformance implementation, a migration source for another runtime, or an independent research prototype. See [A.L.I.S.T.A.I.R.E. integration](alistaire-integration.md) and [ADR 0002](adr/0002-alistaire-kernel-role.md).
+- Repository `0` upstream for portable bootstrap, observation, proposal preparation, and bounded orchestration;
+- Repository `1` or an approved successor at the capability, revocation, canonical-disposition, and recovery boundary;
+- QSO-GENOMES at the declarative identity, lineage, and policy boundary;
+- QuantumStateObjects at the candidate broad runtime boundary;
+- QSO-FABRIC at the multi-QSO coordination and experiment-evidence boundary; and
+- Bridge, QSO-STUDIO, and AionUi at transport and review boundaries.
+
+`qsio-kernel` can produce local execution evidence beneath those layers, but it cannot issue its own capability or promote a local record into canonical portfolio state.
+
+The portfolio still needs to decide whether this repository becomes the canonical low-level runtime, a conformance implementation, a migration source, or an independent research prototype. The lowest-overlap candidate is a small conformance implementation, but that remains unapproved.
+
+See [A.L.I.S.T.A.I.R.E. integration](alistaire-integration.md), [obstruction and gluing analysis](obstruction-and-gluing.md), and [ADR 0002](adr/0002-alistaire-kernel-role.md).
+
+## Obstruction and gluing summary
+
+The current local section cannot yet glue safely to the portfolio because ownership remains unresolved for:
+
+- QSO/QSI/QSIO schemas, canonical encoding, hashing, and package registry;
+- genome admission, canon projection, and capability translation;
+- local witness strength and independent attestation;
+- local ledger state and Repository `1` canonical disposition;
+- logical clocks, freshness, expiry, replay, correction, and revocation;
+- evidence references, privacy, retention, reason codes, and redaction;
+- Quietus, freeze, emergency stop, recovery, and rollback; and
+- compatibility, migration, release, incident, and withdrawal authority.
+
+The analysis defines eight pairwise gluing contracts and eight required triple-overlap witness groups. Pairwise adapters alone are not sufficient for adoption.
 
 ## Documentation map
 
@@ -88,6 +115,7 @@ The portfolio still needs to decide whether this repository becomes the canonica
 
 - [Architecture](architecture.md) — components, runtime flow, trust boundaries, and topology.
 - [A.L.I.S.T.A.I.R.E. integration](alistaire-integration.md) — portfolio role, contracts, authority boundary, and unresolved ownership.
+- [Obstruction and gluing analysis](obstruction-and-gluing.md) — cross-repository incompatibilities, contract edges, and required witnesses.
 - [Ontology](ontology.md) and [terminology](terminology.md) — core semantic vocabulary.
 
 ### Implement and verify
@@ -101,7 +129,7 @@ The portfolio still needs to decide whether this repository becomes the canonica
 
 - [Operations and recovery](operations.md) — local runbook, evidence capture, triage, and rollback.
 - [Security](security.md) and [threat model](threat-model.md) — implemented controls and limitations.
-- [Scope and release governance](governance.md) — alignment with the repository task chain, release plan, and changelog.
+- [Scope and release governance](governance.md) — alignment with the task chain, punch list, release plan, and changelog.
 - [Architecture decisions](adr/0001-kernel-boundaries.md) — recorded and proposed decisions.
 
 ## Root governance records
@@ -109,6 +137,7 @@ The portfolio still needs to decide whether this repository becomes the canonica
 The authoritative project-control records remain at the repository root:
 
 - [`taskchain.md`](https://github.com/aevespers2/qsio-kernel/blob/main/taskchain.md)
+- [`punchlist.md`](https://github.com/aevespers2/qsio-kernel/blob/main/punchlist.md)
 - [`release.md`](https://github.com/aevespers2/qsio-kernel/blob/main/release.md)
 - [`changelog.md`](https://github.com/aevespers2/qsio-kernel/blob/main/changelog.md)
 
