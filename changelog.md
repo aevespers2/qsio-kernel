@@ -14,28 +14,38 @@ All notable repository changes should be recorded here. The format is based on K
 - Developer onboarding, local setup, test workflow, contribution rules, and debugging guidance.
 - Local operations, evidence-capture, incident-triage, recovery, and rollback runbook.
 - Security posture, threat model, limitations, safe-operation guidance, and future security gates.
-- A.L.I.S.T.A.I.R.E. integration guide defining the candidate semantic-kernel role, input/output boundaries, autonomous-development relationship, and acceptance gates.
+- A.L.I.S.T.A.I.R.E. integration guide aligned with the current Repository `0` proposal/orchestration and Repository `1` capability/canonical-disposition model.
+- Portfolio obstruction and gluing analysis with 18 material incompatibilities, eight pairwise contract edges, and eight required triple-overlap witness groups.
+- Release and integration punch list converting architecture, compatibility, authority, privacy, security, recovery, and publication gaps into bounded P0–P5 work.
 - ADR 0002 proposing the interim portfolio role and identifying canonical-runtime options.
-- Repository task chain and release-readiness plan.
+- Repository task chain and expanded release-readiness plan.
 - Exact-head strict documentation workflow with source-identity assertion, generated-site boundary checks, SHA-256 evidence, and retained rendered-site artifacts.
 
 ### Clarified
 
-- Version `0.1.0` is an in-memory experimental reference kernel, not a production agent platform, autonomous-development control plane, or hosted service.
-- `qsio-kernel` is a candidate A.L.I.S.T.A.I.R.E. semantic component until the portfolio chooses a canonical runtime role.
-- The relationship to `QuantumStateObjects`, `QSO-GENOMES`, and `QSO-FABRIC` requires an explicit architecture decision.
+- Version `0.1.0` is an in-memory experimental reference kernel, not a production agent platform, autonomous-development control plane, portable device-security system, or hosted service.
+- `qsio-kernel` is a candidate canonical semantic kernel, reference conformance implementation, migration source, or independent research prototype until the portfolio chooses one durable role.
+- The lowest-overlap candidate is a small conformance implementation, but no role has been approved.
+- Repository `0` local proposal state is non-authoritative; execution begins only after Repository `1` or another approved authority admits a task and issues a narrow capability.
+- Local `PermissionSet` data, canon values, witness records, successful transitions, and QSIO hashes do not grant external authority.
+- Local execution outcome, evidence verification, policy evaluation, canonical disposition, and later correction or revocation are separate states.
+- QSO-GENOMES declarative identity does not create operational admission.
+- QSO-FABRIC experiment aggregation does not create canonical state or redefine kernel hashes and lifecycle semantics.
+- Bridge transport and QSO-STUDIO/AionUi interaction do not create authority by transport or display alone.
 - Forbidden transition keys are semantic validation controls rather than an operating-system sandbox.
 - Witnesses are generated in process and are not independent attestations or signatures.
 - Permission types exist, but comprehensive capability issuance, revocation, and enforcement are not implemented in the main execution path.
-- Deterministic timestamps provide prototype ordering and are not externally verified wall time.
+- Deterministic timestamps provide prototype logical ordering and are not externally verified wall time, freshness, or expiry evidence.
+- Quietus is a local lifecycle control distinct from portfolio freeze, capability revocation, quarantine, emergency stop, and recovery.
 - Persistence, networking, external execution, federation, autonomous spawning, repository modification, and production authority remain outside current scope.
-- A documentation artifact proves renderability of the reviewed source, not runtime correctness, accessibility, or production readiness.
+- A documentation artifact proves renderability of the reviewed source, not runtime correctness, accessibility, compatibility, conformance, or production readiness.
 
 ### Changed
 
-- Expanded the Pages information architecture to include ontology, terminology, lifecycle, operations, threat model, integration guidance, and architecture decisions.
-- Reconciled `taskchain.md`, `release.md`, and documentation governance around exact-head evidence and unresolved portfolio ownership.
-- No runtime behavior, schema, package interface, or external authority changed in this documentation milestone.
+- Expanded the Pages information architecture to include obstruction and gluing analysis alongside ontology, terminology, lifecycle, operations, threat model, integration guidance, and architecture decisions.
+- Reconciled `README.md`, `docs/index.md`, `docs/alistaire-integration.md`, `taskchain.md`, `punchlist.md`, `release.md`, `mkdocs.yml`, and this changelog around current portfolio contracts and unresolved ownership.
+- Added release gates for machine-readable schemas, canonical bytes, reason codes, clock domains, pairwise gluing profiles, triple-overlap witnesses, correction, revocation, privacy, retention, emergency stop, and recovery.
+- No runtime behavior, schema, package interface, adapter, credential, capability, persistence, network route, canonical-state authority, publication, release, or deployment changed in this documentation milestone.
 
 ## 0.1.0 — 2026-07-19
 
