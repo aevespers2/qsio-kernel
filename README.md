@@ -2,7 +2,7 @@
 
 `qsio-kernel` is a compact, executable reference implementation for bounded Quantum State Objects (QSOs) and Quantum State Interaction Objects (QSIOs). It provides an in-memory Python runtime for deterministic state transitions, content-addressed interaction records, witness metadata, lifecycle controls, ledger replay, and conformance-oriented fixtures.
 
-Within A.L.I.S.T.A.I.R.E., this repository is presently a **candidate low-level semantic-kernel or reference-conformance component**. It can model bounded execution and produce reviewable evidence, but it does not own autonomous planning, device control, repository access, credentials, capability issuance, canonical state, merging, release, publication, deployment, or portfolio governance.
+Within A.L.I.S.T.A.I.R.E., this repository is presently a **candidate reference-conformance implementation** for low-level QSO/QSI/QSIO semantics. It can evaluate immutable fixtures and produce reviewable comparison evidence, but it does not own broad runtime admission, autonomous planning, device control, repository access, credentials, capability issuance, canonical state, merging, release, publication, deployment, or portfolio governance.
 
 ## Project status
 
@@ -54,26 +54,26 @@ flowchart LR
 
 ## A.L.I.S.T.A.I.R.E. working boundary
 
-The current portfolio model places Repository `0` upstream as proposal and orchestration support, Repository `1` or an approved successor as capability and canonical-disposition authority, QSO-GENOMES as declarative identity and policy authority, QSO-FABRIC as coordination and experiment evidence, and QSO-STUDIO/AionUi as review surfaces.
+The current portfolio model places Repository `0` upstream as proposal and orchestration support, Repository `1` or an approved successor as capability and canonical-disposition authority, QSO-GENOMES as declarative identity and policy authority, QuantumStateObjects as the candidate broad runtime-admission and bounded-execution layer, QSO-FABRIC as coordination and experiment evidence, and QSO-STUDIO/AionUi as review surfaces.
 
-Under that model, `qsio-kernel` may execute only a bounded task already admitted by an external authority. A local canon value, `PermissionSet`, witness record, successful transition, or QSIO hash cannot grant permission to use a device, network, repository, credential, payment method, release channel, or deployment environment.
+Under the lowest-overlap candidate, `qsio-kernel` evaluates pinned semantic fixtures and compares observed QSIO/replay results with a separately governed neutral contract. It does not accept a Repository `0` proposal or Repository `1` capability as self-interpreting authority, and it does not replace the canonical runtime's device, workspace, admission, privacy, resource, rollback, or execution checks.
 
-The unresolved architectural choice is whether this repository becomes:
+A passing conformance vector proves agreement only for the tested contract, mapping, fixture, kernel source, and canonical-runtime source. A local canon value, `PermissionSet`, witness record, successful transition, conformance witness, or QSIO hash cannot grant permission to use a device, network, repository, credential, payment method, release channel, or deployment environment.
+
+The unresolved architectural choice remains whether this repository becomes:
 
 1. the canonical low-level semantic kernel;
 2. a small reference conformance implementation for QuantumStateObjects or another runtime;
 3. a migration source whose accepted concepts move elsewhere; or
 4. an independent research prototype.
 
-The lowest-overlap candidate is a conformance implementation, but that remains a recommendation rather than an approved decision.
-
-See [A.L.I.S.T.A.I.R.E. integration](docs/alistaire-integration.md), [obstruction and gluing analysis](docs/obstruction-and-gluing.md), and [ADR 0002](docs/adr/0002-alistaire-kernel-role.md).
+The documentation now develops option 2 as the lowest-overlap candidate in [Runtime Conformance Boundary Profile](docs/runtime-conformance-boundary-profile.md) and [ADR 0003](docs/adr/0003-reference-conformance-boundary.md). This is a proposal, not an approved role or compatibility claim.
 
 ## Material integration obstructions
 
 The portfolio must still resolve:
 
-- canonical QSO/QSI/QSIO schema, package, format, and compatibility ownership;
+- neutral ownership for QSO/QSI/QSIO schemas, package, format, canonical bytes, hashes, namespaces, fixtures, and compatibility registry;
 - overlap with QuantumStateObjects and QSO-FABRIC;
 - genome validity versus operational admission;
 - local `PermissionSet` metadata versus Repository `1` capabilities;
@@ -81,22 +81,25 @@ The portfolio must still resolve:
 - in-memory ledger state versus canonical portfolio disposition;
 - logical time versus observation time, freshness, expiry, and replay domains;
 - evidence-reference, reason-code, correction, privacy, retention, and redaction contracts;
-- Quietus versus freeze, revocation, emergency stop, and recovery; and
-- release, migration, incident, rollback, publication, and withdrawal authority.
+- Quietus versus freeze, revocation, emergency stop, and recovery;
+- compatibility-claim issuance, expiry, withdrawal, support, and migration; and
+- release, incident, rollback, publication, and withdrawal authority.
 
-No adapter should be added until machine-readable pairwise and triple-overlap fixtures prove these contracts glue consistently.
+No adapter or conformance claim should be added until machine-readable pairwise and triple-overlap fixtures prove these contracts glue consistently.
 
 ## Documentation
 
 - [Project site](docs/index.md)
 - [Architecture](docs/architecture.md)
 - [A.L.I.S.T.A.I.R.E. integration](docs/alistaire-integration.md)
+- [Runtime conformance boundary](docs/runtime-conformance-boundary-profile.md)
 - [Obstruction and gluing analysis](docs/obstruction-and-gluing.md)
 - [Design and invariants](docs/design.md)
 - [Public API](docs/api.md)
 - [Developer onboarding](docs/onboarding.md)
 - [Operations and recovery](docs/operations.md)
 - [Security and trust boundaries](docs/security.md)
+- [ADR 0003 — Reference conformance boundary](docs/adr/0003-reference-conformance-boundary.md)
 - [Task chain](taskchain.md)
 - [Release and integration punch list](punchlist.md)
 - [Release gates](release.md)
