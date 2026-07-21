@@ -46,6 +46,7 @@ Completed in the documentation candidate:
 - [x] Security posture and limitations.
 - [x] A.L.I.S.T.A.I.R.E. integration role and authority boundary.
 - [x] Architecture decision records for kernel boundaries and proposed portfolio role.
+- [x] Reference-conformance boundary profile and ADR 0003 candidate.
 - [x] Portfolio obstruction and gluing analysis.
 - [x] Release and integration punch list.
 - [x] Task-chain, punch-list, release, and changelog alignment.
@@ -53,7 +54,7 @@ Completed in the documentation candidate:
 
 Evidence still required before P1 is complete:
 
-- [ ] A new exact-head documentation run passes after the final gluing and coordination changes.
+- [ ] A new exact-head documentation run passes after the final conformance, gluing, and coordination changes.
 - [ ] The retained artifact and digest are recorded for the current immutable pull-request head.
 - [ ] Formal machine-readable schema fixtures exist for all public records.
 - [ ] Compatibility statement for `0.x` consumers is approved.
@@ -74,15 +75,17 @@ The portfolio must select one durable role:
 3. migration source whose accepted concepts move into `QuantumStateObjects` or another repository; or
 4. independent research prototype.
 
-The lowest-overlap candidate is a small conformance implementation, because it preserves deterministic fixture value without duplicating broad runtime ownership. This is a recommendation only.
+The lowest-overlap candidate is now developed in the Runtime Conformance Boundary Profile and ADR 0003: a small deterministic conformance implementation beneath a separately governed neutral contract and an explicitly approved canonical runtime. This preserves deterministic fixture value without duplicating broad runtime ownership. It remains a recommendation only.
 
 The decision must designate:
 
 - canonical repository and package identity;
-- QSO/QSI/QSIO schema, format, hashing, registry, and compatibility owner;
+- QSO/QSI/QSIO schema, format, hashing, registry, fixture, and compatibility owner;
+- canonical operational runtime for each accepted profile;
 - relationship to `QuantumStateObjects`, `QSO-GENOMES`, and `QSO-FABRIC`;
 - migration, deprecation, archive, and provenance policy;
 - capability issuer and revoker;
+- compatibility-claim issuer, reviewer, expiry, withdrawal, and support owner;
 - release, incident, emergency-stop, recovery, rollback, and withdrawal authority; and
 - boundary with Repositories `0` and `1`.
 
@@ -96,22 +99,22 @@ The obstruction analysis identifies eight pairwise profiles:
 
 1. QSO-GENOMES → `qsio-kernel` genome consumption;
 2. Repository `0` → Repository `1` proposal admission;
-3. Repository `1` → `qsio-kernel` execution admission;
-4. evidence pipeline → `qsio-kernel` reference consumption;
-5. `qsio-kernel` → QSO-FABRIC experiment evidence;
-6. `qsio-kernel` → Repository `1` result reconciliation;
-7. `qsio-kernel` → QSO-STUDIO/AionUi review projection; and
-8. `qsio-kernel` → persistence and recovery.
+3. Repository `1` → canonical runtime execution admission;
+4. neutral contract and evidence pipeline → `qsio-kernel` reference consumption;
+5. `qsio-kernel` ↔ canonical runtime conformance comparison;
+6. canonical runtime → QSO-FABRIC experiment evidence;
+7. conformance/runtime evidence → Repository `1` result reconciliation; and
+8. conformance/runtime evidence → Bridge → QSO-STUDIO/AionUi review projection.
 
 Before integration, the portfolio must also pass eight triple-overlap witness groups:
 
-- genome → kernel → Fabric;
-- Repository `0` → Repository `1` → kernel;
-- Seeker → temporal interpretation → kernel;
-- kernel → Fabric → Repository `1`;
+- QSO-GENOMES → neutral contract → kernel;
+- neutral contract → kernel → canonical runtime;
+- Repository `0` → Repository `1` → canonical runtime;
+- kernel → canonical runtime → Fabric;
+- Seeker/temporal/Digitalis → canonical runtime → kernel;
 - kernel → Bridge → review interface;
-- Quietus → revocation → recovery;
-- format registry → canonical runtime → conformance kernel; and
+- Quietus → revocation → recovery; and
 - correction → canonical disposition → replay.
 
 Pairwise adapters alone cannot complete P1B.
@@ -122,16 +125,33 @@ Pairwise adapters alone cannot complete P1B.
 
 Required bounded outcomes:
 
-- machine-readable schemas and canonical byte fixtures for every public record;
+- machine-readable schemas and canonical or explicitly mapped byte fixtures for every public record;
 - supported, unsupported, malformed, stale, replayed, revoked, corrected, superseded, partial, and unknown semantics;
 - canonical format and digest rules;
 - reason-code and outcome mappings;
 - lifecycle crosswalk across active, Quietus, frozen, revoked, quarantined, and recovering states;
 - clock domains, temporal provenance, freshness, expiry, and replay rules;
 - privacy, retention, redaction, correction, and hash-disclosure policy; and
-- `0.x` compatibility, migration, deprecation, and withdrawal rules.
+- `0.x` compatibility, migration, deprecation, claim-expiry, withdrawal, and support rules.
 
 Implementation changes remain blocked until owners and fixtures are approved.
+
+## P1D — Reference-conformance boundary
+
+**Status: Proposed and documented**
+
+The candidate profile requires:
+
+- a neutral owner for schemas, canonical bytes, digests, namespaces, registry, fixtures, and compatibility policy;
+- an explicitly named canonical runtime for each profile;
+- distinct contract, fixture, genome projection, admission, capability, conformance-run, QSI, QSIO, execution, receipt, disposition, correction, revocation, and checkpoint identities;
+- explicit mappings rather than name-based equivalence;
+- fail-closed unsupported or lossy mappings;
+- positive, negative, malformed, stale, replayed, revoked, corrected, superseded, partial, and unknown fixtures;
+- independent compatibility review and claim withdrawal;
+- no network, device, repository, credential, payment, release, or deployment authority in the conformance path.
+
+P1D is complete only when ADR 0003 is accepted or superseded and the neutral contract, canonical runtime, fixtures, owners, and gluing witnesses are approved at immutable versions.
 
 ## P2 — Verification hardening
 
@@ -146,7 +166,8 @@ Bounded objectives:
 - define whether lifecycle errors return rejected records or remain exceptions;
 - prove deterministic results across supported Python environments;
 - add static typing, packaging, dependency, license, and supply-chain checks to CI;
-- add bounded hostile-input and resource-limit tests; and
+- add bounded hostile-input and resource-limit tests;
+- reproduce neutral-contract mappings against the selected canonical runtime; and
 - map every implemented invariant to a named test and release gate.
 
 P2 must not add persistence, network access, external authority, device control, or autonomous repository behavior.
@@ -227,7 +248,7 @@ A pull request that changes runtime semantics must:
 
 1. identify the task-chain phase it advances;
 2. update tests and machine-readable fixtures;
-3. update relevant design, API, security, operations, obstruction, and integration documentation;
+3. update relevant design, API, security, operations, obstruction, conformance, and integration documentation;
 4. update `punchlist.md` and `release.md` without prematurely passing gates;
 5. add an `Unreleased` changelog entry;
 6. state compatibility, migration, privacy, authority, incident, and rollback impact;
