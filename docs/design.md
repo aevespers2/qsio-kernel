@@ -9,7 +9,7 @@ The kernel is designed to make a QSO interaction:
 - linked to the state it intends to change;
 - represented by a deterministic transition record;
 - accompanied by witness metadata;
-- content-addressed; and
+- covered by a content-addressed QSIO envelope; and
 - replayable from an ordered ledger.
 
 ## Domain objects
@@ -35,7 +35,9 @@ A QSI contains the request only. The kernel derives the resulting transition and
 
 ### Transition
 
-A state transition names a target QSO, operation, precondition hash, patch, postcondition hash, confidence, evidence references, and its own content hash. The precondition hash protects against applying a transition to an unexpected state within the current execution path.
+A state transition names a target QSO, operation, precondition hash, patch, postcondition hash, confidence, and evidence references. The precondition hash protects against applying a transition to an unexpected state within the current execution path.
+
+`StateTransition` does not have a standalone `content_hash` field in version `0.1.0`. Transition values are serialized as part of the containing QSIO payload and are therefore covered indirectly by the QSIO content hash. Downstream code must not treat a transition as independently content-addressable unless a future version adds and verifies that contract.
 
 ### Witness
 
@@ -49,15 +51,15 @@ The implementation uses domain-separated payload hashing. Conceptually:
 hash = SHA-256(domain || canonical_serialization(payload))
 ```
 
-Separate domains are used for QSO state, transitions, witness records, QSIO records, and identifiers. This prevents identical serialized values from being treated as interchangeable across object types.
+Separate domains are used for QSO state, witness records, QSIO records, and identifiers. Transition values are embedded in the QSIO payload but are not assigned a standalone transition-domain hash by the current implementation.
 
-The content hash proves consistency with the canonicalized payload supplied to the hashing function. It does not prove authorship, external observation, timestamp accuracy, or durable retention.
+A content hash proves consistency with the canonicalized payload supplied to the hashing function. It does not prove authorship, external observation, timestamp accuracy, or durable retention.
 
 ## Validation sequence
 
 ```mermaid
 flowchart TD
-    A[Receive QSI] --> B{Forbidden transition keys?}
+    A[Receive QSI] --> B{Top-level forbidden transition keys?}
     B -->|yes| R[Reject: canon_violation]
     B -->|no| C{Genesis interaction?}
     C -->|yes| D{Genesis authorized?}
@@ -66,7 +68,7 @@ flowchart TD
     C -->|no| E{Known initiator and participants?}
     E -->|no| I[Reject with actor reason]
     E -->|yes| F{Any participant in Quietus?}
-    F -->|yes| J[Raise lifecycle error]
+    F -->|yes| J[Raise QuietusError]
     F -->|no| K[Build and apply transition]
 ```
 
@@ -78,10 +80,12 @@ Rejected validation results are still represented as QSIO records and appended t
 stateDiagram-v2
     [*] --> active: authorized genesis
     active --> active: accepted interaction
-    active --> quietus: quietus interaction
-    quietus --> active: explicit resume
+    active --> quietus: enter_quietus()
+    quietus --> active: resume_from_quietus()
     quietus --> [*]: no implicit mutation
 ```
+
+Use `enter_quietus(...)` for a resumable Quietus transition because it records the reason in `RuntimeContext.quietus_registry` before executing the state change. A raw quietus QSI sent directly through `execute_qsi(...)` changes lifecycle state but does not populate that registry, so `resume_from_quietus(...)` rejects it until the registry inconsistency is repaired.
 
 The type model reserves `quarantined` and `retired`, but version `0.1.0` does not yet implement full transition workflows for those states.
 
