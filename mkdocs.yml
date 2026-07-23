@@ -21,6 +21,7 @@ nav:
       - System architecture: architecture.md
       - A.L.I.S.T.A.I.R.E. integration: alistaire-integration.md
       - Runtime conformance boundary: runtime-conformance-boundary-profile.md
+      - Kernel-to-runtime crosswalk options: kernel-to-runtime-crosswalk-options.md
       - Obstruction and gluing analysis: obstruction-and-gluing.md
       - Ontology: ontology.md
       - Terminology: terminology.md
@@ -39,6 +40,7 @@ nav:
       - ADR 0001 — Kernel boundaries: adr/0001-kernel-boundaries.md
       - ADR 0002 — A.L.I.S.T.A.I.R.E. role: adr/0002-alistaire-kernel-role.md
       - ADR 0003 — Reference conformance boundary: adr/0003-reference-conformance-boundary.md
+      - ADR 0004 — Kernel-to-runtime crosswalk options: adr/0004-kernel-runtime-crosswalk-options.md
 
 markdown_extensions:
   - tables
