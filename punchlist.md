@@ -17,7 +17,9 @@ This punch list turns the repository task chain, release gates, and obstruction 
 
 - [ ] Accept, revise, or supersede ADR 0002.
 - [ ] Accept, revise, or supersede ADR 0003.
+- [ ] Accept, revise, or supersede ADR 0004.
 - [ ] Select one durable role: canonical kernel, conformance implementation, migration source, or independent research prototype.
+- [ ] Select an exact semantic, explicit projection, unsupported-route, or migration-source crosswalk disposition for every claimed runtime profile.
 - [ ] Name the canonical repository and package identity.
 - [ ] Name the neutral contract, namespace, registry, fixture, and compatibility owner.
 - [ ] Name the canonical operational runtime for each supported profile.
@@ -31,7 +33,9 @@ This punch list turns the repository task chain, release gates, and obstruction 
 - [x] Add Pages-ready architecture, ontology, terminology, lifecycle, API, onboarding, operations, security, threat-model, governance, and ADR documentation.
 - [x] Add A.L.I.S.T.A.I.R.E. portfolio-boundary guidance.
 - [x] Add a runtime conformance boundary profile.
+- [x] Add a kernel-to-runtime crosswalk options guide and machine-readable profile.
 - [x] Add ADR 0003 recording the candidate reference-conformance role.
+- [x] Add ADR 0004 recording the crosswalk options and unsupported safe default.
 - [x] Add an obstruction and gluing analysis.
 - [x] Add this coordinated punch list.
 - [x] Align `README.md`, `taskchain.md`, `release.md`, `changelog.md`, and MkDocs navigation.
@@ -45,6 +49,7 @@ This punch list turns the repository task chain, release gates, and obstruction 
 
 - [ ] Name owners for QSO, QSI, QSIO, transition, witness, reason-code, lifecycle, replay, mapping, and compatibility contracts.
 - [ ] Publish machine-readable schema fixtures with canonical or explicitly mapped byte and digest vectors.
+- [x] Document the crosswalk disposition vocabulary: `EXACT`, `TRANSFORM`, `PROJECT`, `UNSUPPORTED`, `UNKNOWN`, and `LOSSY_REJECTED`.
 - [ ] Define required, optional, omitted, null, unknown, partial, rejected, revoked, corrected, and superseded semantics.
 - [ ] Define unsupported-version, unsupported-mapping, and downgrade behavior.
 - [ ] Define package namespace and registry ownership.
@@ -81,8 +86,12 @@ This punch list turns the repository task chain, release gates, and obstruction 
 
 ## P1E — Prove kernel-to-runtime conformance
 
+- [x] Document exact semantic, explicit projection, unsupported-route, and migration-source options without selecting one.
+- [x] Publish a machine-readable documentation-only options profile with authority denials and fail-closed conditions.
+- [x] Establish `UNSUPPORTED` as the safe default when evidence for another route is absent.
 - [ ] Select the canonical runtime for the profile under test.
 - [ ] Bind `contract_profile_id`, `fixture_set_id`, kernel source, runtime source, configuration, and mapping version.
+- [ ] Classify every mapped field as `EXACT`, `TRANSFORM`, `PROJECT`, `UNSUPPORTED`, `UNKNOWN`, or `LOSSY_REJECTED`.
 - [ ] Keep conformance runs separate from runtime admissions, capabilities, executions, receipts, and canonical dispositions.
 - [ ] Compare expected and observed bytes, digests, outcomes, reasons, lifecycle, replay, correction, and revocation semantics.
 - [ ] Add positive, malformed, wrong-subject, wrong-head, stale, replayed, revoked, corrected, superseded, partial, unknown, and mapping-mismatch vectors.
