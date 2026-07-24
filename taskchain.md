@@ -49,21 +49,23 @@ Completed in the documentation candidate:
 - [x] Reference-conformance boundary profile and ADR 0003 candidate.
 - [x] Kernel-to-runtime crosswalk options, machine-readable profile, and ADR 0004 candidate.
 - [x] Portfolio obstruction and gluing analysis.
+- [x] Accessibility review protocol and machine-readable exact-generation evidence profile.
 - [x] Release and integration punch list.
 - [x] Task-chain, punch-list, release, and changelog alignment.
 - [x] Exact-head strict documentation workflow implemented.
+- [x] Automated structural accessibility invariants added to documentation validation.
 
 Evidence still required before P1 is complete:
 
-- [ ] A new exact-head documentation run passes after the final crosswalk, conformance, gluing, and coordination changes.
+- [ ] A new exact-head documentation run passes after the final crosswalk, conformance, gluing, accessibility, and coordination changes.
 - [ ] The retained artifact and digest are recorded for the current immutable pull-request head.
 - [ ] Formal machine-readable schema fixtures exist for all public records.
 - [ ] Compatibility statement for `0.x` consumers is approved.
-- [ ] Diagrams receive semantic and fallback-text review.
+- [ ] The exact rendered artifact receives manual keyboard, focus, heading, table, screen-reader, zoom/reflow, contrast, and cognitive-access review.
+- [ ] The review packet records the exact artifact, digest, environment, reviewer or vacancy, findings, untested conditions, residual risk, and correction path.
 - [ ] Published Pages URL, deployment source, publication authority, and rollback owner are recorded if Pages is enabled.
-- [ ] Accessibility review is recorded for the published site.
 
-A successful documentation run is valid only for the exact source SHA recorded by that run. Any later source change requires a new passing run.
+A successful documentation run is valid only for the exact source SHA recorded by that run. Any later source change requires a new passing run and makes prior accessibility evidence historical.
 
 ## P1A — Canonical portfolio role
 
@@ -177,6 +179,28 @@ Blocked requirements:
 
 No mapper or adapter implementation is authorized by P1E.
 
+## P1F — Documentation accessibility evidence
+
+**Status: Protocol complete; exact-head manual review not completed**
+
+Completed documentation work:
+
+- [x] Define review states without implying certification or publication authority.
+- [x] Bind review evidence to exact source, workflow, artifact, digest, environment, reviewer or vacancy, findings, and correction history.
+- [x] Define automated structural checks and manual keyboard, screen-reader, zoom/reflow, contrast, table, diagram, and cognitive-access review.
+- [x] Define blocking, high, moderate, low, and unknown finding dispositions.
+- [x] Define supersession, withdrawal, rollback, and independent restored-state evidence.
+- [x] Map the protocol to FYSA-120 and propose `019-R` as a non-authoritative refinement.
+
+Outstanding evidence:
+
+- [ ] Review the exact rendered candidate artifact manually in the required environments.
+- [ ] Record all open findings, untested conditions, and residual risk.
+- [ ] Correct blocking findings on a new exact generation and repeat affected checks.
+- [ ] Assign publication, withdrawal, rollback, and restored-state verification roles before any Pages deployment.
+
+`REVIEWED_NO_KNOWN_BLOCKERS` would remain evidence only. It would not establish accessibility certification, legal compliance, publication approval, runtime approval, or portfolio authority.
+
 ## P2 — Verification hardening
 
 **Status: Proposed**
@@ -272,10 +296,10 @@ A pull request that changes runtime semantics must:
 
 1. identify the task-chain phase it advances;
 2. update tests and machine-readable fixtures;
-3. update relevant design, API, security, operations, obstruction, conformance, crosswalk, and integration documentation;
+3. update relevant design, API, security, operations, obstruction, conformance, crosswalk, accessibility, and integration documentation;
 4. update `punchlist.md` and `release.md` without prematurely passing gates;
 5. add an `Unreleased` changelog entry;
-6. state compatibility, migration, privacy, authority, incident, and rollback impact;
+6. state compatibility, migration, privacy, authority, incident, accessibility, and rollback impact;
 7. identify every cross-repository contract change; and
 8. add or update an ADR when ownership or an architectural boundary changes.
 
