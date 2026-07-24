@@ -116,16 +116,20 @@ def validate() -> list[str]:
     if "accessibility-review-evidence.md" not in nav:
         raise SystemExit("MkDocs navigation omits accessibility review")
 
-    controlled = [
-        Path("README.md"),
-        Path("taskchain.md"),
-        Path("release.md"),
-        Path("docs/index.md"),
-        guide_path,
-    ]
-    for path in controlled:
+    for path in [Path("README.md"), Path("release.md"), Path("docs/index.md"), guide_path]:
         if STATUS not in path.read_text(encoding="utf-8"):
             raise SystemExit(f"{path} omits governing accessibility status")
+
+    taskchain = Path("taskchain.md").read_text(encoding="utf-8")
+    taskchain_markers = [
+        "## P1F — Documentation accessibility evidence",
+        "Status: Protocol complete; exact-head manual review not completed",
+        "REVIEWED_NO_KNOWN_BLOCKERS",
+        "019-R",
+    ]
+    missing_taskchain = [marker for marker in taskchain_markers if marker not in taskchain]
+    if missing_taskchain:
+        raise SystemExit(f"taskchain accessibility state is incomplete: {missing_taskchain}")
 
     for path in [Path("docs/index.md"), guide_path]:
         levels = heading_levels(path.read_text(encoding="utf-8"))
@@ -163,6 +167,7 @@ def validate() -> list[str]:
         "required_files=pass",
         "strict_json=pass",
         "profile_invariants=pass",
+        "lifecycle_alignment=pass",
         "heading_order=pass",
         "table_headers=pass",
         "diagram_prose_equivalence=pass",
