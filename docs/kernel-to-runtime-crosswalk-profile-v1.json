@@ -1,0 +1,171 @@
+{
+  "schema_version": "qsio.kernel-runtime-crosswalk-options.v1",
+  "status": "DOCUMENTED_NOT_SELECTED",
+  "repository": "aevespers2/qsio-kernel",
+  "source_generation": {
+    "parent_head": "cf11743300c0a34d2a3bbfe6eadad4c71d726277",
+    "purpose": "documentation-only decision packet",
+    "authority_effect": "none"
+  },
+  "mapping_dispositions": [
+    "EXACT",
+    "TRANSFORM",
+    "PROJECT",
+    "UNSUPPORTED",
+    "UNKNOWN",
+    "LOSSY_REJECTED"
+  ],
+  "safe_default": "UNSUPPORTED",
+  "candidate_options": [
+    {
+      "id": "A_EXACT_SEMANTIC_PROFILE",
+      "summary": "Kernel and runtime share a neutral schema, canonical representation, vocabulary, lifecycle profile, and fixtures.",
+      "requires": [
+        "neutral_contract_owner",
+        "canonical_runtime_identity",
+        "canonical_bytes",
+        "independent_reproduction",
+        "complete_positive_negative_and_lifecycle_fixtures",
+        "claim_expiry_and_withdrawal"
+      ],
+      "selection_status": "NOT_SELECTED"
+    },
+    {
+      "id": "B_EXPLICIT_PROJECTION_PROFILE",
+      "summary": "A versioned mapper emits a deliberately narrower projection with omissions and transformations recorded.",
+      "requires": [
+        "mapping_owner",
+        "projection_receipt",
+        "omitted_and_transformed_field_inventory",
+        "loss_and_privacy_review",
+        "consumer_status_preservation",
+        "rollback_fixture"
+      ],
+      "selection_status": "NOT_SELECTED"
+    },
+    {
+      "id": "C_UNSUPPORTED_ROUTE",
+      "summary": "No kernel-to-runtime route is accepted; records remain local research evidence.",
+      "requires": [
+        "explicit_unsupported_disposition",
+        "no_adapter_execution",
+        "obstruction_record",
+        "revalidation_before_route_creation"
+      ],
+      "selection_status": "SAFE_DEFAULT"
+    },
+    {
+      "id": "D_MIGRATION_SOURCE_PROFILE",
+      "summary": "Selected concepts and fixtures migrate into another repository while this kernel becomes historical or test-only.",
+      "requires": [
+        "concept_disposition_manifest",
+        "provenance_preservation",
+        "behavioral_equivalence_or_declared_difference",
+        "deprecation_and_support_plan",
+        "rollback_archive"
+      ],
+      "selection_status": "NOT_SELECTED"
+    }
+  ],
+  "semantic_surfaces": [
+    "qso_identity",
+    "genome_and_canon",
+    "qsi_request",
+    "qsio_outcome_and_reason",
+    "state_and_transition_hashes",
+    "witness_metadata",
+    "permission_metadata",
+    "logical_time",
+    "local_ledger",
+    "quietus_lifecycle"
+  ],
+  "required_continuity_witnesses": [
+    "identity",
+    "canonical_or_transformed_bytes",
+    "state_and_replay",
+    "authority",
+    "temporal",
+    "correction_and_revocation",
+    "stop_and_recovery",
+    "consumer_status"
+  ],
+  "fail_closed_conditions": [
+    "missing_field_disposition",
+    "name_based_equivalence",
+    "unsupported_version",
+    "unsupported_or_lossy_mapping",
+    "unknown_authority_owner",
+    "canonical_byte_drift",
+    "identity_collision",
+    "replay_divergence",
+    "correction_or_revocation_propagation_failure",
+    "local_control_interpreted_as_external_authority",
+    "source_generation_change_without_revalidation"
+  ],
+  "authority_denials": {
+    "selects_canonical_runtime": false,
+    "approves_adapter": false,
+    "issues_compatibility_claim": false,
+    "issues_capability": false,
+    "authorizes_execution": false,
+    "authorizes_network": false,
+    "authorizes_credentials": false,
+    "authorizes_repository_write": false,
+    "authorizes_release": false,
+    "authorizes_deployment": false,
+    "authorizes_pages_publication": false,
+    "authorizes_canonical_state": false
+  },
+  "acceptance_gates": [
+    "owner_assignments",
+    "exact_source_bindings",
+    "field_level_dispositions",
+    "canonical_bytes_or_reversible_transform",
+    "positive_negative_malformed_lifecycle_replay_correction_and_revocation_fixtures",
+    "pairwise_and_triple_overlap_witnesses",
+    "privacy_retention_and_disclosure_review",
+    "independent_compatibility_review",
+    "claim_expiry_correction_withdrawal_and_support",
+    "rollback_and_restored_state_evidence"
+  ],
+  "fysa_120": {
+    "categories": [
+      "CAT-011",
+      "CAT-012",
+      "CAT-013",
+      "CAT-017",
+      "CAT-019",
+      "CAT-031",
+      "CAT-040"
+    ],
+    "subdivisions": [
+      "011-B",
+      "011-E",
+      "012-A",
+      "012-B",
+      "012-D",
+      "012-E",
+      "013-A",
+      "013-D",
+      "013-E",
+      "017-C",
+      "017-D",
+      "017-E",
+      "019-B",
+      "019-C",
+      "019-D",
+      "031-A",
+      "031-D",
+      "031-E",
+      "040-A",
+      "040-B",
+      "040-D",
+      "040-E"
+    ],
+    "proposed_gap": {
+      "id": "040-N",
+      "name": "Fail-closed semantic crosswalk and unsupported-route governance",
+      "authoritative": false
+    }
+  }
+}
