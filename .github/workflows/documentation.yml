@@ -29,9 +29,9 @@ jobs:
     timeout-minutes: 10
     env:
       SUBMITTED_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
-      SITE_DIR: ${{ runner.temp }}/qsio-kernel-documentation-site
-      EVIDENCE_DIR: ${{ runner.temp }}/qsio-kernel-documentation-evidence
-      ACCESSIBILITY_VALIDATION_OUTPUT: ${{ runner.temp }}/accessibility-structural-validation.txt
+      SITE_DIR: /tmp/qsio-kernel-documentation-site
+      EVIDENCE_DIR: /tmp/qsio-kernel-documentation-evidence
+      ACCESSIBILITY_VALIDATION_OUTPUT: /tmp/accessibility-structural-validation.txt
 
     steps:
       - name: Check out submitted source
