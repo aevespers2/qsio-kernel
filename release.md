@@ -2,7 +2,9 @@
 
 ## Current release posture
 
-The repository contains a functional `0.1.0` experimental kernel, but no new release is approved by this document. The present documentation work is release-neutral: it clarifies behavior, portfolio fit, the candidate reference-conformance role, crosswalk options, gluing obstructions, operational limits, and evidence requirements without changing runtime scope.
+The repository contains a functional `0.1.0` experimental kernel, but no new release is approved by this document. The present documentation work is release-neutral: it clarifies behavior, portfolio fit, the candidate reference-conformance role, crosswalk options, gluing obstructions, operational limits, accessibility-review evidence, and release requirements without changing runtime scope.
+
+The accessibility protocol status is `ACCESSIBILITY_REVIEW_PROTOCOL_DOCUMENTED_SITE_NOT_CERTIFIED`. It defines exact-generation review evidence but does not certify the current candidate, determine legal compliance, authorize Pages publication, or complete any release gate that requires human review.
 
 ## Release classes
 
@@ -16,7 +18,7 @@ If the portfolio selects `qsio-kernel` as a reference-conformance implementation
 
 ### Documentation publication
 
-A GitHub Pages publication may expose rendered documentation after exact-head build evidence, generated-site review, publication authority, accessibility review, privacy review, and rollback ownership are recorded. The documentation workflow builds an artifact; it does not deploy Pages.
+A GitHub Pages publication may expose rendered documentation after exact-head build evidence, generated-site review, publication authority, manual accessibility review, privacy and licensing review, public-artifact retention, withdrawal, rollback ownership, and independently verified restoration are recorded. The documentation workflow builds an artifact; it does not deploy Pages.
 
 ### Production or hosted-service release
 
@@ -34,6 +36,7 @@ Not authorized. The current architecture lacks durable storage, independent atte
 - [x] Proposed portfolio-role ADR exists.
 - [x] Runtime conformance boundary profile and ADR 0003 candidate exist.
 - [x] Kernel-to-runtime crosswalk options, machine-readable profile, and ADR 0004 candidate exist.
+- [x] Accessibility review protocol and machine-readable exact-generation profile exist.
 - [x] MIT license present.
 - [ ] Durable role relative to `QuantumStateObjects`, QSO-GENOMES, and QSO-FABRIC approved.
 - [ ] Canonical repository and package identity approved.
@@ -43,7 +46,7 @@ Not authorized. The current architecture lacks durable storage, independent atte
 - [ ] Release owner and explicit approval record identified.
 - [ ] Compatibility-claim issuer, reviewer, expiry, correction, withdrawal, and support owners identified.
 - [ ] Migration, deprecation, archive, provenance, and withdrawal policies approved.
-- [ ] Incident, emergency-stop, recovery, rollback, and release-withdrawal authorities designated.
+- [ ] Incident, emergency-stop, recovery, rollback, publication, accessibility-review, and release-withdrawal authorities designated.
 
 ### Cross-repository gluing
 
@@ -121,10 +124,10 @@ Not authorized. The current architecture lacks durable storage, independent atte
 - [ ] Dependency, license, and supply-chain review recorded.
 - [ ] Secret scan recorded for release source and artifacts.
 - [ ] Adversarial, mapping-confusion, projection-confusion, and authority-confusion evidence recorded.
-- [ ] Data classification covers QSO state, evidence references, genome fields, witnesses, mappings, fixtures, logs, compatibility claims, and artifacts.
+- [ ] Data classification covers QSO state, evidence references, genome fields, witnesses, mappings, fixtures, logs, compatibility claims, accessibility packets, and artifacts.
 - [ ] Prohibited sensitive fields and reference-only handling are defined.
 - [ ] Canonical-hash and fixture-vector disclosure and correlation risks are reviewed.
-- [ ] Privacy, retention, correction, redaction, deletion, cache invalidation, claim withdrawal, and public-artifact policy are approved.
+- [ ] Privacy, retention, correction, redaction, deletion, cache invalidation, claim withdrawal, accessibility finding retention, and public-artifact policy are approved.
 - [ ] Security contact and vulnerability-reporting route approved.
 
 ### Lifecycle, emergency stop, and recovery
@@ -142,17 +145,21 @@ Not authorized. The current architecture lacks durable storage, independent atte
 
 ### Documentation and accessibility
 
-- [x] Project overview, architecture, design, API, onboarding, operations, security, governance, integration, conformance, crosswalk, obstruction, and ADR guides exist in the candidate.
+- [x] Project overview, architecture, design, API, onboarding, operations, security, governance, integration, conformance, crosswalk, obstruction, accessibility-review, and ADR guides exist in the candidate.
 - [x] Pages-ready navigation exists.
 - [x] Exact-head strict documentation workflow is implemented.
-- [ ] The final documentation candidate passes source-identity assertion, machine-readable crosswalk validation, local-link validation, and strict MkDocs build after all current changes.
+- [x] Accessibility review states, exact-generation evidence fields, finding severity, correction, withdrawal, and rollback rules are documented.
+- [x] Machine-readable accessibility profile denies certification, legal-compliance, publication, deployment, runtime, credential, and portfolio authority.
+- [ ] The final documentation candidate passes source-identity assertion, crosswalk and accessibility-profile validation, local-link validation, structural accessibility checks, and strict MkDocs build after all current changes.
 - [ ] The rendered-site artifact and SHA-256 manifest are retained for the final immutable head.
 - [ ] Internal-link validation and generated-site boundary checks pass for the final head.
-- [ ] Mermaid source diagrams are reviewed for correctness and fallback readability.
-- [ ] Keyboard, contrast, heading, table, and screen-reader review recorded.
-- [ ] Published Pages URL, deployment source, deployment provenance, and rollback recorded if Pages is enabled.
+- [ ] Mermaid source diagrams are manually reviewed for correctness and fallback readability.
+- [ ] Keyboard, focus, contrast, heading, table, screen-reader, 200%/400% zoom, reflow, and cognitive-access review is recorded against the exact retained artifact.
+- [ ] Reviewer or vacancy, browser/OS, assistive technology, untested conditions, open findings, and residual risk are recorded.
+- [ ] Blocking findings are corrected in a new immutable generation and the affected checks are repeated.
+- [ ] Published Pages URL, deployment source, deployment provenance, withdrawal, rollback, and independently verified restoration are recorded if Pages is enabled.
 
-Every source change invalidates prior exact-head documentation evidence and requires a new passing run.
+Every source change invalidates prior exact-head documentation and accessibility evidence and requires a new passing run and review.
 
 ### Provenance and reproducibility
 
@@ -161,6 +168,7 @@ Every source change invalidates prior exact-head documentation evidence and requ
 - [ ] Runtime build and test environment recorded.
 - [ ] Contract, mapping, schema, fixture, package, registry, and canonical-runtime source identities recorded.
 - [x] Crosswalk profile records the exact parent generation from which the documentation decision packet was derived.
+- [x] Accessibility profile defines exact source, artifact, environment, reviewer, finding, correction, and supersession bindings.
 - [x] Documentation workflow records source SHA, workflow run, Python version, MkDocs version, and generation time.
 - [x] Documentation artifact contains dependency, source-identity, site-file, and evidence SHA-256 manifests.
 - [x] Documentation build commands are encoded in the reviewed workflow.
@@ -181,16 +189,19 @@ For an experimental or conformance source release:
 
 For documentation publication:
 
+- [x] Accessibility protocol defines finding preservation, correction on a new generation, and non-certification boundaries.
 - [ ] Pages publication owner identified.
+- [ ] Accessibility reviewer or accepted vacancy identified.
 - [ ] Previous known-good site artifact identified.
 - [ ] Site withdrawal and restoration procedure reviewed.
-- [ ] Public artifact retention and privacy policy approved.
+- [ ] Public artifact and accessibility-packet retention and privacy policy approved.
+- [ ] Restored public state independently verified.
 
 For any future hosted runtime, deployment, health-check, backup, incident-response, credential-revocation, emergency-stop, and rollback gates are mandatory and require separate architecture approval.
 
 ## Release decision
 
-**Blocked** until every gate applicable to the intended release class has evidence. Existing code, a passing demo, a passing conformance vector, a successful local transition, or a successful documentation build must not be described as production-ready or canonically authoritative.
+**Blocked** until every gate applicable to the intended release class has evidence. Existing code, a passing demo, a passing conformance vector, a successful local transition, a successful documentation build, or automated accessibility checks must not be described as production-ready, canonically authoritative, accessibility-certified, legally compliant, or publication-approved.
 
 The unresolved portfolio role and crosswalk route are release significant. No release should imply that `qsio-kernel` is A.L.I.S.T.A.I.R.E.'s authoritative runtime until ownership is explicitly approved. If another runtime is canonical, no conformance claim should be made until neutral contracts, field dispositions, mappings, and shared fixtures reproduce under independent review. Until then, the route remains unsupported.
 
@@ -210,12 +221,16 @@ Withdraw or supersede a release or compatibility claim when any of the following
 - a missing, unsupported, ambiguous, or lossy mapping is treated as equivalent;
 - packaging that installs different code than the reviewed commit;
 - documentation artifact built from a source other than the submitted immutable head;
+- inaccessible navigation, keyboard trap, missing critical prose equivalent, unusable critical table, hidden warning, or other blocking documentation-accessibility defect;
+- an accessibility result is represented as current after its exact source or artifact changed;
 - undocumented capability, schema, mapping, or authority expansion;
 - sensitive information in source, tests, fixtures, artifacts, hashes, or Pages;
-- misleading canonical-runtime, conformance, security, or production claims; or
+- misleading canonical-runtime, conformance, security, accessibility, legal-compliance, or production claims; or
 - material license, provenance, compatibility, migration, support, or withdrawal defect.
 
-Rollback means marking the affected release or compatibility claim as withdrawn, preserving incident evidence, returning source and documentation to the last verified behavior or explicit unsupported route, revoking affected capabilities, invalidating incompatible caches and fixtures, and issuing a corrected version rather than rewriting an existing public tag or receipt.
+Rollback means marking the affected release, compatibility claim, site, or accessibility result as withdrawn, preserving incident evidence, returning source and documentation to the last verified behavior or explicit unsupported route, revoking affected capabilities, invalidating incompatible caches and fixtures, and issuing a corrected version rather than rewriting an existing public tag or receipt.
+
+A documentation rollback must not restore stale architecture claims, withdrawn compatibility claims, revoked authority, sensitive content, or a generation containing the same unresolved accessibility defect.
 
 ## Evidence template
 
@@ -240,11 +255,18 @@ Pairwise gluing fixtures:
 Triple-overlap witnesses:
 Documentation workflow run:
 Documentation artifact and digest:
-Security, privacy, and retention checks:
+Accessibility review state:
+Accessibility reviewer or vacancy:
+Browser, operating system, viewport, zoom, and assistive technology:
+Keyboard, heading, table, diagram, contrast, reflow, and screen-reader results:
+Accessibility findings, untested conditions, and residual risk:
+Accessibility correction, supersession, or withdrawal record:
+Security, privacy, licensing, and retention checks:
 Artifacts and SHA-256 values:
 Known limitations:
 Claim expiry, correction, and withdrawal policy:
 Previous known-good release, fixture set, claim, or site:
 Rollback trigger and procedure:
-Incident, emergency-stop, recovery, support, and withdrawal authorities:
+Independent restored-state verification:
+Incident, emergency-stop, recovery, support, publication, accessibility-review, and withdrawal authorities:
 ```

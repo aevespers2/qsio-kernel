@@ -101,6 +101,8 @@ No adapter or conformance claim should be added until machine-readable pairwise 
 - [Developer onboarding](docs/onboarding.md)
 - [Operations and recovery](docs/operations.md)
 - [Security and trust boundaries](docs/security.md)
+- [Accessibility review and exact-head evidence](docs/accessibility-review-evidence.md)
+- [Machine-readable accessibility review profile](docs/accessibility-review-profile-v1.json)
 - [ADR 0003 — Reference conformance boundary](docs/adr/0003-reference-conformance-boundary.md)
 - [ADR 0004 — Kernel-to-runtime crosswalk options](docs/adr/0004-kernel-runtime-crosswalk-options.md)
 - [Task chain](taskchain.md)
@@ -109,6 +111,8 @@ No adapter or conformance claim should be added until machine-readable pairwise 
 - [Changelog](changelog.md)
 
 A Pages-ready MkDocs configuration is included in `mkdocs.yml`. Pull requests that change documentation are validated by an exact-head strict site build and produce a retained rendered-site evidence artifact. Publishing the site remains a repository-administration decision and is not performed by the documentation workflow.
+
+The accessibility review protocol defines automated and manual evidence requirements for one immutable rendered-site artifact. Its status is `ACCESSIBILITY_REVIEW_PROTOCOL_DOCUMENTED_SITE_NOT_CERTIFIED`: it does not certify the current candidate or authorize publication, and every source change requires a new exact-head review packet.
 
 ## Scope discipline
 

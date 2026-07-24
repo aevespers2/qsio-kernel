@@ -1,6 +1,6 @@
 # Release and integration punch list
 
-This punch list turns the repository task chain, release gates, and obstruction analysis into reviewable work. Checked boxes require repository evidence; documentation alone must not mark runtime, authority, security, compatibility, or release work complete.
+This punch list turns the repository task chain, release gates, and obstruction analysis into reviewable work. Checked boxes require repository evidence; documentation alone must not mark runtime, authority, security, compatibility, accessibility certification, publication, or release work complete.
 
 ## P0 — Preserve the current reference baseline
 
@@ -37,13 +37,17 @@ This punch list turns the repository task chain, release gates, and obstruction 
 - [x] Add ADR 0003 recording the candidate reference-conformance role.
 - [x] Add ADR 0004 recording the crosswalk options and unsupported safe default.
 - [x] Add an obstruction and gluing analysis.
+- [x] Add an accessibility review and exact-head evidence protocol.
+- [x] Add a machine-readable accessibility review profile with explicit authority denials.
 - [x] Add this coordinated punch list.
 - [x] Align `README.md`, `taskchain.md`, `release.md`, `changelog.md`, and MkDocs navigation.
 - [x] Implement exact-head strict documentation validation and retained evidence.
-- [ ] Confirm a new passing documentation run for the final immutable head after all conformance and coordination updates.
-- [ ] Review diagrams for semantic accuracy and readable fallback text.
-- [ ] Record keyboard, heading, contrast, table, and screen-reader review.
-- [ ] Record Pages publication authority, deployment source, provenance, and rollback if publication is enabled.
+- [x] Add structural checks for heading order, table headers, diagram–prose markers, JSON integrity, and meaningful link text.
+- [ ] Confirm a new passing documentation run for the final immutable head after all conformance, coordination, and accessibility updates.
+- [ ] Record the rendered-site artifact, digest, manifest, tooling, and source identity for that head.
+- [ ] Perform keyboard, focus, heading, table, screen-reader, zoom/reflow, contrast, and cognitive-access review on the exact rendered artifact.
+- [ ] Record reviewer or vacancy, environment, findings, untested conditions, residual risk, correction, and supersession state.
+- [ ] Record Pages publication authority, deployment source, provenance, withdrawal, rollback, and restored-state verification if publication is enabled.
 
 ## P1A — Freeze contract vocabulary
 
@@ -117,6 +121,19 @@ This punch list turns the repository task chain, release gates, and obstruction 
 - [ ] Add redaction, mapping, stale-view, correction, revocation, inaccessible-view, claim-withdrawal, and rollback fixtures.
 - [ ] Prove kernel → Bridge → review-interface triple-overlap fixtures.
 
+## P1H — Complete exact-head documentation accessibility evidence
+
+- [x] Define safe review states from `NOT_REVIEWED` through `WITHDRAWN` and `UNKNOWN`.
+- [x] Separate automated checks, manual review, certification, publication, and restoration.
+- [x] Require diagram–prose equivalence and table interpretation.
+- [x] Define finding severity and new-generation closure requirements.
+- [x] Preserve historical review packets rather than silently editing them.
+- [ ] Run automated checks against the final exact documentation head.
+- [ ] Review the same retained artifact manually.
+- [ ] Correct every blocking finding and rebuild from a new immutable source.
+- [ ] Assign a human publication approver and rollback owner before Pages publication.
+- [ ] Independently verify any restored public site after rollback.
+
 ## P2 — Verification hardening
 
 - [ ] Add static typing and enforce declared strictness.
@@ -171,23 +188,23 @@ This punch list turns the repository task chain, release gates, and obstruction 
 
 ## P4 — Security, privacy, and operations
 
-- [ ] Assign security contact, privacy owner, incident commander, emergency-stop owner, recovery owner, compatibility reviewer, and claim-withdrawal owner.
-- [ ] Classify QSO state, evidence references, genome fields, witnesses, fixtures, mappings, logs, and artifacts.
+- [ ] Assign security contact, privacy owner, incident commander, emergency-stop owner, recovery owner, compatibility reviewer, claim-withdrawal owner, publication approver, accessibility reviewer, and rollback owner.
+- [ ] Classify QSO state, evidence references, genome fields, witnesses, fixtures, mappings, logs, artifacts, and accessibility review records.
 - [ ] Define prohibited sensitive fields and reference-only handling.
 - [ ] Review canonical hashes and fixture vectors for disclosure and correlation risk.
-- [ ] Define log, artifact, fixture, mapping, and Pages retention.
+- [ ] Define log, artifact, fixture, mapping, accessibility packet, and Pages retention.
 - [ ] Perform hostile-input, denial-of-service, replay, confusion, downgrade, mapping, and resource-limit testing.
-- [ ] Perform a tabletop incident, freeze, evidence-preservation, claim-withdrawal, rollback, and bounded-restart exercise.
+- [ ] Perform a tabletop incident, freeze, evidence-preservation, claim-withdrawal, rollback, bounded-restart, and site-restoration exercise.
 - [ ] Record residual risks and unsupported platform assumptions.
 
 ## P5 — Release and publication
 
 - [ ] Select the release class: experimental source, conformance fixture package, documentation publication, or another approved class.
-- [ ] Record immutable source, canonical runtime, contract, mapping, package, schema, fixture, dependency, test, and documentation identities.
+- [ ] Record immutable source, canonical runtime, contract, mapping, package, schema, fixture, dependency, test, documentation, and accessibility-review identities.
 - [ ] Record exact build and verification commands.
 - [ ] Identify previous known-good package, compatibility claim, fixture set, and documentation artifacts.
 - [ ] Exercise withdrawal and restoration procedures.
-- [ ] Approve public privacy, licensing, support, and vulnerability-reporting routes.
+- [ ] Approve public privacy, licensing, accessibility, support, and vulnerability-reporting routes.
 - [ ] Finalize changelog, migration notes, compatibility statement, limitations, and claim-expiry rules.
 - [ ] Obtain explicit release, compatibility-claim, and publication approval.
 
@@ -201,5 +218,6 @@ Until the applicable gates are approved and evidenced, this punch list does not 
 - credential, signing-key, or capability issuance;
 - repository mutation, merge, release, publication, deployment, or infrastructure changes;
 - canonical-state or canonical-runtime ownership;
+- accessibility certification, legal-compliance conclusions, or unreviewed publication claims;
 - unreviewed compatibility or conformance claims; or
 - production-readiness claims.

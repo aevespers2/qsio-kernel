@@ -18,12 +18,14 @@ All notable repository changes should be recorded here. The format is based on K
 - Runtime Conformance Boundary Profile defining the candidate neutral-contract → reference-kernel → canonical-runtime split, identity separation, explicit mappings, fixture classes, and triple-overlap witnesses.
 - Kernel-to-runtime crosswalk decision packet with exact semantic, explicit projection, unsupported-route, and migration-source options.
 - Machine-readable `qsio.kernel-runtime-crosswalk-options.v1` profile defining field dispositions, fail-closed conditions, authority denials, acceptance gates, and FYSA-120 mapping.
+- Accessibility review and exact-head evidence protocol covering structural checks, manual keyboard and assistive-technology review, diagram–prose equivalence, zoom/reflow, contrast, finding severity, correction, supersession, withdrawal, rollback, and independently verified restoration.
+- Machine-readable `qsio.documentation-accessibility-review.v1` profile defining review states, exact-generation bindings, automated and manual review domains, publication gates, authority denials, and FYSA-120 mapping.
 - ADR 0003 proposing `qsio-kernel` as a small deterministic reference-conformance implementation rather than the broad canonical runtime.
 - ADR 0004 preserving the unsupported route as the safe default until an independently reviewed crosswalk is approved.
 - Portfolio obstruction and gluing analysis with material incompatibilities, pairwise contract edges, and required triple-overlap witness groups.
-- Release and integration punch list converting architecture, compatibility, authority, privacy, security, recovery, conformance, support, and publication gaps into bounded P0–P5 work.
+- Release and integration punch list converting architecture, compatibility, authority, privacy, security, accessibility, recovery, conformance, support, and publication gaps into bounded P0–P5 work.
 - Repository task chain and expanded release-readiness plan.
-- Exact-head strict documentation workflow with source-identity assertion, generated-site boundary checks, SHA-256 evidence, and retained rendered-site artifacts.
+- Exact-head strict documentation workflow with source-identity assertion, generated-site boundary checks, SHA-256 evidence, retained rendered-site artifacts, and structural accessibility validation.
 
 ### Clarified
 
@@ -48,14 +50,18 @@ All notable repository changes should be recorded here. The format is based on K
 - Quietus is a local lifecycle control distinct from portfolio freeze, capability revocation, quarantine, compatibility-claim withdrawal, emergency stop, and recovery.
 - Persistence, networking, external execution, federation, autonomous spawning, repository modification, and production authority remain outside current scope.
 - A documentation artifact proves renderability of the reviewed source, not runtime correctness, accessibility, compatibility, conformance, or production readiness.
+- Automated accessibility checks do not replace manual review, establish certification, determine legal compliance, or authorize publication.
+- Accessibility evidence is current only for the exact source and rendered artifact recorded by its packet; a later source change makes the prior result historical.
+- `REVIEWED_NO_KNOWN_BLOCKERS` means no blocking finding was identified under the recorded conditions, not that every environment or user need was tested.
 
 ### Changed
 
-- Expanded the Pages information architecture to include the runtime conformance boundary, kernel-to-runtime crosswalk options, and ADRs 0003–0004 alongside obstruction and gluing analysis, ontology, terminology, lifecycle, operations, threat model, integration guidance, and architecture decisions.
-- Reconciled `README.md`, `taskchain.md`, `punchlist.md`, `release.md`, `mkdocs.yml`, and this changelog around the candidate reference-conformance role, explicit unsupported route, and unresolved neutral-contract/canonical-runtime ownership.
+- Expanded the Pages information architecture to include the runtime conformance boundary, kernel-to-runtime crosswalk options, exact-head accessibility review evidence, and ADRs 0003–0004 alongside obstruction and gluing analysis, ontology, terminology, lifecycle, operations, threat model, integration guidance, and architecture decisions.
+- Reconciled `README.md`, `taskchain.md`, `punchlist.md`, `release.md`, `mkdocs.yml`, and this changelog around the candidate reference-conformance role, explicit unsupported route, accessibility non-certification boundary, and unresolved neutral-contract/canonical-runtime ownership.
 - Reframed gluing witnesses around QSO-GENOMES → neutral contract → kernel, neutral contract → kernel → canonical runtime, Repository `0` → Repository `1` → canonical runtime, kernel → canonical runtime → Fabric, evidence interpretation → runtime → kernel, transport/review, stop/recovery, and correction/replay triples.
-- Added release gates for field-level mapping dispositions, unsupported and lossy routes, canonical runtime identity, neutral mappings, compatibility claims, claim expiry and withdrawal, independent compatibility review, fixture-vector privacy, and mapping-confusion tests.
-- No runtime behavior, schema, package interface, adapter, credential, capability, persistence, network route, canonical-state authority, compatibility claim, publication, release, or deployment changed in this documentation milestone.
+- Added release gates for field-level mapping dispositions, unsupported and lossy routes, canonical runtime identity, neutral mappings, compatibility claims, claim expiry and withdrawal, independent compatibility review, fixture-vector privacy, mapping-confusion tests, exact-artifact accessibility review, finding preservation, site withdrawal, rollback, and restored-state verification.
+- Extended the documentation validator to require the accessibility guide and profile, reject duplicate or non-finite JSON, verify review-state and authority-denial invariants, check heading order, table headers, diagram–prose markers, and weak link text, and retain the profile in exact-head evidence.
+- No runtime behavior, schema, package interface, adapter, credential, capability, persistence, network route, canonical-state authority, compatibility claim, accessibility certification, Pages publication, release, or deployment changed in this documentation milestone.
 
 ## 0.1.0 — 2026-07-19
 
