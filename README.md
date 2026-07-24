@@ -67,7 +67,7 @@ The unresolved architectural choice remains whether this repository becomes:
 3. a migration source whose accepted concepts move elsewhere; or
 4. an independent research prototype.
 
-The documentation now develops option 2 as the lowest-overlap candidate in [Runtime Conformance Boundary Profile](docs/runtime-conformance-boundary-profile.md) and [ADR 0003](docs/adr/0003-reference-conformance-boundary.md). This is a proposal, not an approved role or compatibility claim.
+The documentation develops option 2 as the lowest-overlap role candidate in [Runtime Conformance Boundary Profile](docs/runtime-conformance-boundary-profile.md) and [ADR 0003](docs/adr/0003-reference-conformance-boundary.md). The new [Kernel-to-runtime crosswalk options](docs/kernel-to-runtime-crosswalk-options.md) packet makes four safe dispositions explicit: exact semantic profile, explicit projection, unsupported route, or preservation-safe migration. **No option is selected.** The unsupported route remains the safe default until an independently reviewed profile proves otherwise.
 
 ## Material integration obstructions
 
@@ -85,7 +85,7 @@ The portfolio must still resolve:
 - compatibility-claim issuance, expiry, withdrawal, support, and migration; and
 - release, incident, rollback, publication, and withdrawal authority.
 
-No adapter or conformance claim should be added until machine-readable pairwise and triple-overlap fixtures prove these contracts glue consistently.
+No adapter or conformance claim should be added until machine-readable pairwise and triple-overlap fixtures prove these contracts glue consistently. Missing, ambiguous, or lossy field mappings must remain `UNKNOWN`, `UNSUPPORTED`, or `LOSSY_REJECTED` rather than being inferred from similar names.
 
 ## Documentation
 
@@ -93,6 +93,8 @@ No adapter or conformance claim should be added until machine-readable pairwise 
 - [Architecture](docs/architecture.md)
 - [A.L.I.S.T.A.I.R.E. integration](docs/alistaire-integration.md)
 - [Runtime conformance boundary](docs/runtime-conformance-boundary-profile.md)
+- [Kernel-to-runtime crosswalk options](docs/kernel-to-runtime-crosswalk-options.md)
+- [Machine-readable crosswalk profile](docs/kernel-to-runtime-crosswalk-profile-v1.json)
 - [Obstruction and gluing analysis](docs/obstruction-and-gluing.md)
 - [Design and invariants](docs/design.md)
 - [Public API](docs/api.md)
@@ -100,6 +102,7 @@ No adapter or conformance claim should be added until machine-readable pairwise 
 - [Operations and recovery](docs/operations.md)
 - [Security and trust boundaries](docs/security.md)
 - [ADR 0003 — Reference conformance boundary](docs/adr/0003-reference-conformance-boundary.md)
+- [ADR 0004 — Kernel-to-runtime crosswalk options](docs/adr/0004-kernel-runtime-crosswalk-options.md)
 - [Task chain](taskchain.md)
 - [Release and integration punch list](punchlist.md)
 - [Release gates](release.md)

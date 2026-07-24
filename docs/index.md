@@ -15,7 +15,8 @@ It exists to make state, intent, transition evidence, lifecycle controls, and re
 | Integrity | Domain-separated content hashing |
 | Lifecycle | Genesis, active operation, Quietus, explicit resume |
 | Replay | Deterministic reconstruction from the in-memory ledger |
-| Portfolio role | Candidate semantic kernel or reference conformance implementation |
+| Portfolio role | Candidate reference-conformance implementation; not approved |
+| Kernel-to-runtime route | `DOCUMENTED_NOT_SELECTED`; safe default `UNSUPPORTED` |
 | External authority | None |
 | Production readiness | Not claimed |
 
@@ -77,6 +78,10 @@ flowchart TB
     R --> H[Reconstructed state hash]
 ```
 
+### Prose equivalent
+
+A local caller or demo creates a QSI request. The kernel validates the request, reads the bounded runtime context, constructs a transition and witness metadata, emits a local QSIO outcome, appends it to an in-memory ledger, and later replays that ledger to reconstruct the state hash. None of these steps creates external authority.
+
 ## A.L.I.S.T.A.I.R.E. relationship
 
 The current working portfolio model places:
@@ -92,7 +97,16 @@ The current working portfolio model places:
 
 The portfolio still needs to decide whether this repository becomes the canonical low-level runtime, a conformance implementation, a migration source, or an independent research prototype. The lowest-overlap candidate is a small conformance implementation, but that remains unapproved.
 
-See [A.L.I.S.T.A.I.R.E. integration](alistaire-integration.md), [obstruction and gluing analysis](obstruction-and-gluing.md), and [ADR 0002](adr/0002-alistaire-kernel-role.md).
+The [Kernel-to-runtime crosswalk options](kernel-to-runtime-crosswalk-options.md) packet makes four outcomes reviewable without selecting one:
+
+1. exact semantic profile;
+2. explicit projection profile;
+3. unsupported route; or
+4. preservation-safe migration source.
+
+Every field must be classified as `EXACT`, `TRANSFORM`, `PROJECT`, `UNSUPPORTED`, `UNKNOWN`, or `LOSSY_REJECTED`. Missing, ambiguous, or lossy mappings fail closed. The unsupported route remains the safe default until an independently governed profile proves another route.
+
+See [A.L.I.S.T.A.I.R.E. integration](alistaire-integration.md), [runtime conformance boundary](runtime-conformance-boundary-profile.md), [kernel-to-runtime crosswalk options](kernel-to-runtime-crosswalk-options.md), [obstruction and gluing analysis](obstruction-and-gluing.md), and [ADR 0004](adr/0004-kernel-runtime-crosswalk-options.md).
 
 ## Obstruction and gluing summary
 
@@ -107,7 +121,7 @@ The current local section cannot yet glue safely to the portfolio because owners
 - Quietus, freeze, emergency stop, recovery, and rollback; and
 - compatibility, migration, release, incident, and withdrawal authority.
 
-The analysis defines eight pairwise gluing contracts and eight required triple-overlap witness groups. Pairwise adapters alone are not sufficient for adoption.
+The analysis defines pairwise gluing contracts and required triple-overlap witness groups. Pairwise adapters alone are not sufficient for adoption, and similarly named fields do not establish semantic equivalence.
 
 ## Documentation map
 
@@ -115,6 +129,9 @@ The analysis defines eight pairwise gluing contracts and eight required triple-o
 
 - [Architecture](architecture.md) — components, runtime flow, trust boundaries, and topology.
 - [A.L.I.S.T.A.I.R.E. integration](alistaire-integration.md) — portfolio role, contracts, authority boundary, and unresolved ownership.
+- [Runtime conformance boundary](runtime-conformance-boundary-profile.md) — proposed neutral-contract, reference-kernel, and canonical-runtime split.
+- [Kernel-to-runtime crosswalk options](kernel-to-runtime-crosswalk-options.md) — field dispositions, safe unsupported route, review packet, and rollback.
+- [Machine-readable crosswalk profile](kernel-to-runtime-crosswalk-profile-v1.json) — documentation-only option and gate registry.
 - [Obstruction and gluing analysis](obstruction-and-gluing.md) — cross-repository incompatibilities, contract edges, and required witnesses.
 - [Ontology](ontology.md) and [terminology](terminology.md) — core semantic vocabulary.
 
@@ -130,11 +147,11 @@ The analysis defines eight pairwise gluing contracts and eight required triple-o
 - [Operations and recovery](operations.md) — local runbook, evidence capture, triage, and rollback.
 - [Security](security.md) and [threat model](threat-model.md) — implemented controls and limitations.
 - [Scope and release governance](governance.md) — alignment with the task chain, punch list, release plan, and changelog.
-- [Architecture decisions](adr/0001-kernel-boundaries.md) — recorded and proposed decisions.
+- [ADR 0001](adr/0001-kernel-boundaries.md), [ADR 0002](adr/0002-alistaire-kernel-role.md), [ADR 0003](adr/0003-reference-conformance-boundary.md), and [ADR 0004](adr/0004-kernel-runtime-crosswalk-options.md) — recorded and proposed decisions.
 
 ## Root governance records
 
-The authoritative project-control records remain at the repository root:
+The project-control records remain at the repository root:
 
 - [`taskchain.md`](https://github.com/aevespers2/qsio-kernel/blob/main/taskchain.md)
 - [`punchlist.md`](https://github.com/aevespers2/qsio-kernel/blob/main/punchlist.md)

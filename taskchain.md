@@ -47,6 +47,7 @@ Completed in the documentation candidate:
 - [x] A.L.I.S.T.A.I.R.E. integration role and authority boundary.
 - [x] Architecture decision records for kernel boundaries and proposed portfolio role.
 - [x] Reference-conformance boundary profile and ADR 0003 candidate.
+- [x] Kernel-to-runtime crosswalk options, machine-readable profile, and ADR 0004 candidate.
 - [x] Portfolio obstruction and gluing analysis.
 - [x] Release and integration punch list.
 - [x] Task-chain, punch-list, release, and changelog alignment.
@@ -54,7 +55,7 @@ Completed in the documentation candidate:
 
 Evidence still required before P1 is complete:
 
-- [ ] A new exact-head documentation run passes after the final conformance, gluing, and coordination changes.
+- [ ] A new exact-head documentation run passes after the final crosswalk, conformance, gluing, and coordination changes.
 - [ ] The retained artifact and digest are recorded for the current immutable pull-request head.
 - [ ] Formal machine-readable schema fixtures exist for all public records.
 - [ ] Compatibility statement for `0.x` consumers is approved.
@@ -75,12 +76,12 @@ The portfolio must select one durable role:
 3. migration source whose accepted concepts move into `QuantumStateObjects` or another repository; or
 4. independent research prototype.
 
-The lowest-overlap candidate is now developed in the Runtime Conformance Boundary Profile and ADR 0003: a small deterministic conformance implementation beneath a separately governed neutral contract and an explicitly approved canonical runtime. This preserves deterministic fixture value without duplicating broad runtime ownership. It remains a recommendation only.
+The lowest-overlap candidate is developed in the Runtime Conformance Boundary Profile and ADR 0003: a small deterministic conformance implementation beneath a separately governed neutral contract and an explicitly approved canonical runtime. The Kernel-to-runtime crosswalk options guide and ADR 0004 add four explicit route dispositions: exact semantic profile, explicit projection, unsupported route, or preservation-safe migration. No route is selected; `UNSUPPORTED` remains the safe default when evidence is incomplete.
 
 The decision must designate:
 
 - canonical repository and package identity;
-- QSO/QSI/QSIO schema, format, hashing, registry, fixture, and compatibility owner;
+- QSO/QSI/QSIO schema, format, hashing, registry, fixture, mapping, and compatibility owner;
 - canonical operational runtime for each accepted profile;
 - relationship to `QuantumStateObjects`, `QSO-GENOMES`, and `QSO-FABRIC`;
 - migration, deprecation, archive, and provenance policy;
@@ -134,7 +135,7 @@ Required bounded outcomes:
 - privacy, retention, redaction, correction, and hash-disclosure policy; and
 - `0.x` compatibility, migration, deprecation, claim-expiry, withdrawal, and support rules.
 
-Implementation changes remain blocked until owners and fixtures are approved.
+Every mapped field must use one explicit disposition: `EXACT`, `TRANSFORM`, `PROJECT`, `UNSUPPORTED`, `UNKNOWN`, or `LOSSY_REJECTED`. Missing or ambiguous dispositions fail closed. Implementation changes remain blocked until owners and fixtures are approved.
 
 ## P1D — Reference-conformance boundary
 
@@ -152,6 +153,29 @@ The candidate profile requires:
 - no network, device, repository, credential, payment, release, or deployment authority in the conformance path.
 
 P1D is complete only when ADR 0003 is accepted or superseded and the neutral contract, canonical runtime, fixtures, owners, and gluing witnesses are approved at immutable versions.
+
+## P1E — Kernel-to-runtime crosswalk decision
+
+**Status: Decision packet complete; architecture selection blocked**
+
+Completed documentation work:
+
+- [x] Four options defined: exact semantic profile, explicit projection, unsupported route, and migration source.
+- [x] Field dispositions defined: `EXACT`, `TRANSFORM`, `PROJECT`, `UNSUPPORTED`, `UNKNOWN`, and `LOSSY_REJECTED`.
+- [x] Machine-readable documentation profile records fail-closed conditions, authority denials, acceptance gates, and FYSA-120 mapping.
+- [x] Identity, byte, state, authority, temporal, correction, stop/recovery, and consumer-continuity witness classes documented.
+- [x] Unsupported route established as the safe default until another route is independently approved.
+
+Blocked requirements:
+
+- [ ] Select or reject a canonical runtime for a named profile.
+- [ ] Assign neutral contract, registry, mapping, review, support, correction, and withdrawal owners.
+- [ ] Bind exact contract, fixture, mapping, kernel, runtime, configuration, and consumer identities.
+- [ ] Publish canonical bytes or a reversible transformation with hostile fixtures.
+- [ ] Demonstrate pairwise and triple-overlap witnesses.
+- [ ] Record independent review, claim expiry, correction, withdrawal, migration, rollback, and restored-state evidence.
+
+No mapper or adapter implementation is authorized by P1E.
 
 ## P2 — Verification hardening
 
@@ -248,7 +272,7 @@ A pull request that changes runtime semantics must:
 
 1. identify the task-chain phase it advances;
 2. update tests and machine-readable fixtures;
-3. update relevant design, API, security, operations, obstruction, conformance, and integration documentation;
+3. update relevant design, API, security, operations, obstruction, conformance, crosswalk, and integration documentation;
 4. update `punchlist.md` and `release.md` without prematurely passing gates;
 5. add an `Unreleased` changelog entry;
 6. state compatibility, migration, privacy, authority, incident, and rollback impact;

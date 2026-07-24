@@ -16,7 +16,10 @@ All notable repository changes should be recorded here. The format is based on K
 - Security posture, threat model, limitations, safe-operation guidance, and future security gates.
 - A.L.I.S.T.A.I.R.E. integration guide aligned with the current Repository `0` proposal/orchestration and Repository `1` capability/canonical-disposition model.
 - Runtime Conformance Boundary Profile defining the candidate neutral-contract → reference-kernel → canonical-runtime split, identity separation, explicit mappings, fixture classes, and triple-overlap witnesses.
+- Kernel-to-runtime crosswalk decision packet with exact semantic, explicit projection, unsupported-route, and migration-source options.
+- Machine-readable `qsio.kernel-runtime-crosswalk-options.v1` profile defining field dispositions, fail-closed conditions, authority denials, acceptance gates, and FYSA-120 mapping.
 - ADR 0003 proposing `qsio-kernel` as a small deterministic reference-conformance implementation rather than the broad canonical runtime.
+- ADR 0004 preserving the unsupported route as the safe default until an independently reviewed crosswalk is approved.
 - Portfolio obstruction and gluing analysis with material incompatibilities, pairwise contract edges, and required triple-overlap witness groups.
 - Release and integration punch list converting architecture, compatibility, authority, privacy, security, recovery, conformance, support, and publication gaps into bounded P0–P5 work.
 - Repository task chain and expanded release-readiness plan.
@@ -30,7 +33,8 @@ All notable repository changes should be recorded here. The format is based on K
 - A passing fixture demonstrates agreement only for the exact contract, mapping, fixture set, kernel source, runtime source, and configuration under test.
 - Contract profile, fixture set, genome projection, runtime admission, capability, conformance run, QSI, QSIO, runtime execution, receipt, canonical disposition, correction, revocation, and recovery checkpoint identities must remain distinct.
 - Similarly named QSO/QSI/QSIO fields across repositories are not equivalent without an approved mapping and shared fixtures.
-- Unsupported or lossy mappings fail closed rather than degrading into a warning.
+- Every crosswalk field must be classified as `EXACT`, `TRANSFORM`, `PROJECT`, `UNSUPPORTED`, `UNKNOWN`, or `LOSSY_REJECTED`; missing, ambiguous, and lossy mappings fail closed.
+- The unsupported route is an affirmative safe disposition, not a documentation failure or temporary warning.
 - Repository `0` local proposal state is non-authoritative; execution begins only after Repository `1` or another approved authority admits a task and issues a narrow capability to a canonical runtime.
 - Local `PermissionSet` data, canon values, witness records, successful transitions, conformance witnesses, and QSIO hashes do not grant external authority.
 - Local execution outcome, conformance result, evidence verification, policy evaluation, canonical disposition, and later correction or revocation are separate states.
@@ -47,10 +51,10 @@ All notable repository changes should be recorded here. The format is based on K
 
 ### Changed
 
-- Expanded the Pages information architecture to include the runtime conformance boundary and ADR 0003 alongside obstruction and gluing analysis, ontology, terminology, lifecycle, operations, threat model, integration guidance, and architecture decisions.
-- Reconciled `README.md`, `taskchain.md`, `punchlist.md`, `release.md`, `mkdocs.yml`, and this changelog around the candidate reference-conformance role and unresolved neutral-contract/canonical-runtime ownership.
+- Expanded the Pages information architecture to include the runtime conformance boundary, kernel-to-runtime crosswalk options, and ADRs 0003–0004 alongside obstruction and gluing analysis, ontology, terminology, lifecycle, operations, threat model, integration guidance, and architecture decisions.
+- Reconciled `README.md`, `taskchain.md`, `punchlist.md`, `release.md`, `mkdocs.yml`, and this changelog around the candidate reference-conformance role, explicit unsupported route, and unresolved neutral-contract/canonical-runtime ownership.
 - Reframed gluing witnesses around QSO-GENOMES → neutral contract → kernel, neutral contract → kernel → canonical runtime, Repository `0` → Repository `1` → canonical runtime, kernel → canonical runtime → Fabric, evidence interpretation → runtime → kernel, transport/review, stop/recovery, and correction/replay triples.
-- Added release gates for canonical runtime identity, neutral mappings, compatibility claims, claim expiry and withdrawal, independent compatibility review, fixture-vector privacy, and mapping-confusion tests.
+- Added release gates for field-level mapping dispositions, unsupported and lossy routes, canonical runtime identity, neutral mappings, compatibility claims, claim expiry and withdrawal, independent compatibility review, fixture-vector privacy, and mapping-confusion tests.
 - No runtime behavior, schema, package interface, adapter, credential, capability, persistence, network route, canonical-state authority, compatibility claim, publication, release, or deployment changed in this documentation milestone.
 
 ## 0.1.0 — 2026-07-19

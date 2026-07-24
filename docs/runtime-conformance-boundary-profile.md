@@ -4,7 +4,18 @@
 
 This profile defines the lowest-overlap candidate role for `qsio-kernel`: a **small, deterministic reference-conformance implementation** used to test shared QSO/QSI/QSIO semantics without becoming A.L.I.S.T.A.I.R.E.'s broad runtime, capability authority, device-control layer, transport service, review interface, or canonical-state owner.
 
-The profile is documentation-only. It does not approve the role, change runtime behavior, or establish a canonical contract package.
+The profile is documentation-only. It does not approve the role, change runtime behavior, establish a canonical contract package, or select a kernel-to-runtime route.
+
+## Relationship to the crosswalk decision
+
+The [Kernel-to-runtime crosswalk options](kernel-to-runtime-crosswalk-options.md) guide and [ADR 0004](adr/0004-kernel-runtime-crosswalk-options.md) turn this candidate boundary into four explicit architecture choices:
+
+1. exact semantic profile;
+2. explicit projection profile;
+3. unsupported route; or
+4. migration-source profile.
+
+Every field must receive one disposition: `EXACT`, `TRANSFORM`, `PROJECT`, `UNSUPPORTED`, `UNKNOWN`, or `LOSSY_REJECTED`. No choice is approved here. `UNSUPPORTED` is the safe default whenever identity, bytes, lifecycle, authority, temporal, correction, privacy, or recovery evidence is incomplete.
 
 ## Candidate ownership split
 
@@ -58,6 +69,10 @@ flowchart LR
     A -->|rejected or unknown| H[Hold, correct, or supersede]
 ```
 
+### Prose equivalent
+
+A separately governed contract profile and immutable fixture set feed the local kernel. The kernel produces observed QSIO and replay evidence, which is compared with expected vectors. A match produces a candidate conformance witness; a mismatch produces an obstruction report. Both proceed to independent compatibility review. Only that review may create a bounded, versioned claim; rejected or uncertain results remain held, corrected, or superseded.
+
 The conformance run is local and side-effect-free outside its declared evidence output. No network, device, repository, credential, payment, deployment, or external-tool authority is inferred.
 
 ## Admission versus conformance
@@ -78,19 +93,20 @@ Conversely, a successful canonical-runtime execution does not prove conformance 
 
 The neutral profile must define an explicit mapping rather than assuming that similarly named fields are equivalent.
 
-| Neutral concept | Current kernel concept | Required clarification |
-|---|---|---|
-| semantic subject | `QSO.id` | namespace, generation, retirement, replacement, and collision rules |
-| declarative identity | genome and canon references | authoritative resolver, lineage, revocation, and projection rules |
-| interaction request | `QSI` | version, subject binding, evidence references, clock domain, and replay domain |
-| accepted/rejected result | `QSIO.outcome` and reason | shared outcome vocabulary, `UNKNOWN`, partial, revoked, corrected, and superseded states |
-| pre/post state | QSO state and transition hashes | canonical bytes, omitted/null rules, redaction, and disclosure policy |
-| witness | witness metadata | independent-attestation classes, signer/verifier identity, and trust strength |
-| lifecycle stop | Quietus | crosswalk to freeze, quarantine, revocation, emergency stop, and recovery |
-| local history | in-memory ledger and parent hashes | distinction from canonical disposition, durable evidence, and recovery checkpoints |
-| logical ordering | deterministic logical time | observation time, wall time, freshness, expiry, skew, and causal ordering |
+| Neutral concept | Current kernel concept | Required clarification | Safe unresolved disposition |
+|---|---|---|---|
+| semantic subject | `QSO.qso_id` | namespace, generation, retirement, replacement, and collision rules | `UNKNOWN` |
+| declarative identity | genome and canon references | authoritative resolver, lineage, revocation, and projection rules | `UNSUPPORTED` |
+| interaction request | `QSI` | version, subject binding, evidence references, clock domain, and replay domain | `LOSSY_REJECTED` |
+| accepted/rejected result | `QSIO.outcome` and reason | shared outcome vocabulary, `UNKNOWN`, partial, revoked, corrected, and superseded states | `UNKNOWN` |
+| pre/post state | QSO state and transition hashes | canonical bytes, omitted/null rules, redaction, and disclosure policy | `UNSUPPORTED` |
+| witness | witness metadata | independent-attestation classes, signer/verifier identity, and trust strength | `PROJECT` as local metadata only |
+| local permission | `PermissionSet` | capability issuer, resource scope, expiry, replay, narrowing, revocation, device/workspace, and expected-state rules | `LOSSY_REJECTED` |
+| lifecycle stop | Quietus | crosswalk to freeze, quarantine, revocation, emergency stop, and recovery | `LOSSY_REJECTED` |
+| local history | in-memory ledger and parent hashes | distinction from canonical disposition, durable evidence, and recovery checkpoints | `PROJECT` as local evidence only |
+| logical ordering | deterministic logical time | observation time, wall time, freshness, expiry, skew, and causal ordering | `PROJECT` as local order only |
 
-An unapproved or lossy mapping is a failed conformance condition, not a warning that may be ignored.
+An unapproved, ambiguous, missing, or lossy mapping is a failed conformance condition, not a warning that may be ignored.
 
 ## Required fixture classes
 
@@ -147,14 +163,17 @@ This profile records the following unresolved obstructions:
 11. canonical hashes may expose sensitive correlation unless disclosure policy is approved;
 12. no accepted compatibility-claim issuer, reviewer, expiry, withdrawal, or support owner exists.
 
+The new crosswalk packet makes the obstruction actionable without weakening it: each unresolved surface must remain `UNKNOWN`, `UNSUPPORTED`, or `LOSSY_REJECTED` until exact evidence supports another disposition.
+
 ## Release consequences
 
 A future conformance-fixture release must:
 
-- identify the canonical contract, runtime, fixture, and kernel source commits;
-- include canonical or explicitly mapped bytes and digest vectors;
+- identify the canonical contract, runtime, fixture, mapping, and kernel source commits;
+- record every field-level disposition;
+- include canonical or explicitly transformed bytes and digest vectors;
 - publish positive, negative, malformed, lifecycle, replay, correction, and revocation fixtures;
-- state supported and unsupported profile versions;
+- state supported, projected, unsupported, unknown, and lossy-rejected routes;
 - distinguish semantic conformance from operational security and authority;
 - expire or withdraw claims when any referenced contract or mapping is superseded;
 - preserve failed and mismatched evidence;
@@ -167,10 +186,12 @@ No release may claim that `qsio-kernel` is the authoritative runtime solely beca
 This candidate becomes adoptable only when:
 
 - the portfolio selects the conformance role or another explicit role;
-- ADR 0003 is accepted or superseded;
+- ADR 0003 and ADR 0004 are accepted or superseded;
 - neutral contract and registry ownership is approved;
 - QuantumStateObjects or another runtime is identified as canonical for the relevant profile;
+- a crosswalk option and every field-level disposition are approved;
 - machine-readable mappings and fixtures are committed at immutable versions;
 - all required pairwise and triple-overlap witnesses pass;
 - privacy, retention, correction, revocation, incident, release, and withdrawal owners are named;
-- exact-head runtime and documentation evidence is retained.
+- exact-head runtime and documentation evidence is retained; and
+- rollback and restored-state evidence proves safe withdrawal to the previous profile or unsupported route.
