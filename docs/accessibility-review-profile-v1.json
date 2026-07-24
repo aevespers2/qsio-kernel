@@ -1,0 +1,199 @@
+{
+  "schema_version": "qsio.documentation-accessibility-review.v1",
+  "status": "ACCESSIBILITY_REVIEW_PROTOCOL_DOCUMENTED_SITE_NOT_CERTIFIED",
+  "scope": {
+    "surface": "rendered technical documentation",
+    "includes": [
+      "MkDocs navigation",
+      "Markdown content",
+      "tables",
+      "code blocks",
+      "Mermaid diagrams and prose equivalents",
+      "generated static site"
+    ],
+    "excludes": [
+      "runtime accessibility",
+      "command-line accessibility certification",
+      "desktop or remote interface accessibility",
+      "legal compliance determination",
+      "GitHub Pages publication approval"
+    ]
+  },
+  "safe_default": "NOT_REVIEWED",
+  "review_states": [
+    "NOT_REVIEWED",
+    "AUTOMATED_CHECKS_ONLY",
+    "MANUAL_REVIEW_INCOMPLETE",
+    "REVIEWED_WITH_OPEN_FINDINGS",
+    "REVIEWED_NO_KNOWN_BLOCKERS",
+    "SUPERSEDED",
+    "WITHDRAWN",
+    "UNKNOWN"
+  ],
+  "authority_denials": {
+    "accessibility_certification": false,
+    "legal_compliance_determination": false,
+    "publication_approval": false,
+    "deployment_authority": false,
+    "runtime_authority": false,
+    "credential_authority": false,
+    "portfolio_authority": false
+  },
+  "exact_generation_binding": {
+    "required": true,
+    "fields": [
+      "repository",
+      "source_sha",
+      "pull_request_or_branch",
+      "workflow_run",
+      "artifact_id",
+      "artifact_name",
+      "artifact_digest",
+      "site_manifest_digest",
+      "python_version",
+      "mkdocs_version",
+      "review_date",
+      "reviewer_or_vacancy"
+    ],
+    "source_change_effect": "PRIOR_REVIEW_BECOMES_HISTORICAL"
+  },
+  "automated_checks": [
+    "required_pages_present",
+    "navigation_reachability",
+    "local_links_and_anchors",
+    "heading_level_structure",
+    "diagram_prose_equivalence_markers",
+    "table_header_presence",
+    "image_alternative_requirements",
+    "meaningful_link_text",
+    "generated_site_secret_boundary",
+    "duplicate_key_rejection",
+    "non_finite_json_rejection",
+    "clean_tracked_source_after_validation"
+  ],
+  "manual_review_domains": [
+    {
+      "id": "keyboard_focus",
+      "checks": [
+        "keyboard_only_reachability",
+        "visible_focus",
+        "logical_focus_order",
+        "no_keyboard_traps",
+        "skip_navigation_behavior"
+      ]
+    },
+    {
+      "id": "headings_landmarks",
+      "checks": [
+        "single_clear_primary_heading",
+        "semantic_heading_hierarchy",
+        "navigation_main_footer_landmarks",
+        "current_location_clarity"
+      ]
+    },
+    {
+      "id": "screen_reader",
+      "checks": [
+        "landing_page",
+        "architecture_page",
+        "api_page",
+        "lifecycle_page",
+        "crosswalk_page",
+        "obstruction_page",
+        "accessibility_protocol_page",
+        "table_header_announcements",
+        "code_and_identifier_distinction",
+        "diagram_not_solo_source"
+      ]
+    },
+    {
+      "id": "zoom_reflow_low_bandwidth",
+      "checks": [
+        "zoom_200_percent",
+        "zoom_400_percent",
+        "long_hash_and_code_handling",
+        "narrow_viewport_reflow",
+        "diagram_failure_prose_completeness",
+        "style_or_script_absence_readability"
+      ]
+    },
+    {
+      "id": "contrast_non_color",
+      "checks": [
+        "text_contrast",
+        "focus_indicator_contrast",
+        "status_not_color_only",
+        "forced_color_readability"
+      ]
+    },
+    {
+      "id": "cognitive_access",
+      "checks": [
+        "acronym_expansion",
+        "plain_language_status_boundaries",
+        "ordered_procedures",
+        "concept_distinction",
+        "visible_uncertainty_and_ownership_gaps"
+      ]
+    }
+  ],
+  "finding_severities": [
+    "BLOCKING",
+    "HIGH",
+    "MODERATE",
+    "LOW",
+    "UNKNOWN"
+  ],
+  "closure_rule": "NEW_EXACT_HEAD_ARTIFACT_AND_REVIEW_REQUIRED",
+  "publication_boundary": {
+    "review_no_known_blockers_authorizes_publication": false,
+    "additional_requirements": [
+      "named_publication_approver",
+      "deployment_source",
+      "privacy_review",
+      "licensing_review",
+      "public_artifact_retention_policy",
+      "previous_known_good_artifact",
+      "withdrawal_route",
+      "rollback_owner",
+      "independent_restored_state_verification"
+    ]
+  },
+  "correction_and_rollback": {
+    "preserve_historical_packet": true,
+    "silent_rewrite_forbidden": true,
+    "new_generation_required": true,
+    "rollback_must_not_restore": [
+      "stale_architecture_claims",
+      "withdrawn_compatibility_claims",
+      "revoked_authority",
+      "sensitive_content",
+      "same_unresolved_accessibility_defect"
+    ]
+  },
+  "fysa_120": {
+    "applied": [
+      "011-B",
+      "011-E",
+      "012-A",
+      "012-B",
+      "012-D",
+      "012-E",
+      "018-B",
+      "018-D",
+      "018-E",
+      "019-B",
+      "019-C",
+      "019-D",
+      "031-A",
+      "031-D",
+      "031-E",
+      "040-E"
+    ],
+    "proposed_gap": {
+      "id": "019-R",
+      "name": "Exact-generation technical-site accessibility evidence, non-certification boundaries, and independently verified restoration",
+      "authoritative": false
+    }
+  }
+}
