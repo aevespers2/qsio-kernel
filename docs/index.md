@@ -17,6 +17,7 @@ It exists to make state, intent, transition evidence, lifecycle controls, and re
 | Replay | Deterministic reconstruction from the in-memory ledger |
 | Portfolio role | Candidate reference-conformance implementation; not approved |
 | Kernel-to-runtime route | `DOCUMENTED_NOT_SELECTED`; safe default `UNSUPPORTED` |
+| Accessibility review | `ACCESSIBILITY_REVIEW_PROTOCOL_DOCUMENTED_SITE_NOT_CERTIFIED` |
 | External authority | None |
 | Production readiness | Not claimed |
 
@@ -123,6 +124,12 @@ The current local section cannot yet glue safely to the portfolio because owners
 
 The analysis defines pairwise gluing contracts and required triple-overlap witness groups. Pairwise adapters alone are not sufficient for adoption, and similarly named fields do not establish semantic equivalence.
 
+## Accessibility review boundary
+
+The [Accessibility review and exact-head evidence](accessibility-review-evidence.md) guide defines structural checks, manual keyboard and assistive-technology review, diagram–prose equivalence, zoom and reflow review, finding severity, correction, withdrawal, and rollback evidence. The accompanying [machine-readable profile](accessibility-review-profile-v1.json) preserves the safe default `NOT_REVIEWED` and denies certification, legal-compliance, publication, deployment, runtime, credential, and portfolio authority.
+
+The protocol is documentation, not a completed review. A rendered-site artifact must be reviewed at its exact source generation; a later source change makes the earlier result historical.
+
 ## Documentation map
 
 ### Understand the system
@@ -146,6 +153,8 @@ The analysis defines pairwise gluing contracts and required triple-overlap witne
 
 - [Operations and recovery](operations.md) — local runbook, evidence capture, triage, and rollback.
 - [Security](security.md) and [threat model](threat-model.md) — implemented controls and limitations.
+- [Accessibility review and exact-head evidence](accessibility-review-evidence.md) — review states, automated and manual checks, correction, and publication boundary.
+- [Machine-readable accessibility review profile](accessibility-review-profile-v1.json) — exact-generation evidence and authority-denial registry.
 - [Scope and release governance](governance.md) — alignment with the task chain, punch list, release plan, and changelog.
 - [ADR 0001](adr/0001-kernel-boundaries.md), [ADR 0002](adr/0002-alistaire-kernel-role.md), [ADR 0003](adr/0003-reference-conformance-boundary.md), and [ADR 0004](adr/0004-kernel-runtime-crosswalk-options.md) — recorded and proposed decisions.
 
