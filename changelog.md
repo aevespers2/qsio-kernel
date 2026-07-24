@@ -20,6 +20,7 @@ All notable repository changes should be recorded here. The format is based on K
 - Machine-readable `qsio.kernel-runtime-crosswalk-options.v1` profile defining field dispositions, fail-closed conditions, authority denials, acceptance gates, and FYSA-120 mapping.
 - Accessibility review and exact-head evidence protocol covering structural checks, manual keyboard and assistive-technology review, diagram–prose equivalence, zoom/reflow, contrast, finding severity, correction, supersession, withdrawal, rollback, and independently verified restoration.
 - Machine-readable `qsio.documentation-accessibility-review.v1` profile defining review states, exact-generation bindings, automated and manual review domains, publication gates, authority denials, and FYSA-120 mapping.
+- Reusable strict accessibility-documentation validator for profile integrity, heading order, table headers, diagram–prose equivalence, meaningful link text, and lifecycle status consistency.
 - ADR 0003 proposing `qsio-kernel` as a small deterministic reference-conformance implementation rather than the broad canonical runtime.
 - ADR 0004 preserving the unsupported route as the safe default until an independently reviewed crosswalk is approved.
 - Portfolio obstruction and gluing analysis with material incompatibilities, pairwise contract edges, and required triple-overlap witness groups.
@@ -60,7 +61,7 @@ All notable repository changes should be recorded here. The format is based on K
 - Reconciled `README.md`, `taskchain.md`, `punchlist.md`, `release.md`, `mkdocs.yml`, and this changelog around the candidate reference-conformance role, explicit unsupported route, accessibility non-certification boundary, and unresolved neutral-contract/canonical-runtime ownership.
 - Reframed gluing witnesses around QSO-GENOMES → neutral contract → kernel, neutral contract → kernel → canonical runtime, Repository `0` → Repository `1` → canonical runtime, kernel → canonical runtime → Fabric, evidence interpretation → runtime → kernel, transport/review, stop/recovery, and correction/replay triples.
 - Added release gates for field-level mapping dispositions, unsupported and lossy routes, canonical runtime identity, neutral mappings, compatibility claims, claim expiry and withdrawal, independent compatibility review, fixture-vector privacy, mapping-confusion tests, exact-artifact accessibility review, finding preservation, site withdrawal, rollback, and restored-state verification.
-- Extended the documentation validator to require the accessibility guide and profile, reject duplicate or non-finite JSON, verify review-state and authority-denial invariants, check heading order, table headers, diagram–prose markers, and weak link text, and retain the profile in exact-head evidence.
+- Extended the established Documentation workflow to execute the accessibility validator, retain both profiles and the automated result, write generated state outside the checkout, assert tracked-source cleanliness, and include the accessibility outcome in the terminal fail-closed gate.
 - No runtime behavior, schema, package interface, adapter, credential, capability, persistence, network route, canonical-state authority, compatibility claim, accessibility certification, Pages publication, release, or deployment changed in this documentation milestone.
 
 ## 0.1.0 — 2026-07-19
