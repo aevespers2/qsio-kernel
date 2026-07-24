@@ -159,6 +159,7 @@ def validate() -> list[str]:
         raise SystemExit(f"weak standalone link text found: {weak}")
 
     return [
+        "result=success",
         "required_files=pass",
         "strict_json=pass",
         "profile_invariants=pass",
@@ -172,11 +173,29 @@ def validate() -> list[str]:
     ]
 
 
-if __name__ == "__main__":
-    results = validate()
-    output = Path(
+def output_path() -> Path:
+    return Path(
         os.environ.get("ACCESSIBILITY_VALIDATION_OUTPUT", "accessibility-structural-validation.txt")
     )
+
+
+if __name__ == "__main__":
+    output = output_path()
     output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text("\n".join(results) + "\n", encoding="utf-8")
-    print("\n".join(results))
+    try:
+        results = validate()
+    except BaseException as error:
+        diagnostic = [
+            "result=failure",
+            f"error_type={type(error).__name__}",
+            f"error={error}",
+            "manual_review_completed=false",
+            "certification=false",
+            "publication_authority=false",
+        ]
+        output.write_text("\n".join(diagnostic) + "\n", encoding="utf-8")
+        print("\n".join(diagnostic))
+        raise
+    else:
+        output.write_text("\n".join(results) + "\n", encoding="utf-8")
+        print("\n".join(results))
