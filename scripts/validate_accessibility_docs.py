@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import math
+import os
 import re
 from pathlib import Path
 from typing import Any
@@ -173,6 +174,9 @@ def validate() -> list[str]:
 
 if __name__ == "__main__":
     results = validate()
-    output = Path("accessibility-structural-validation.txt")
+    output = Path(
+        os.environ.get("ACCESSIBILITY_VALIDATION_OUTPUT", "accessibility-structural-validation.txt")
+    )
+    output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text("\n".join(results) + "\n", encoding="utf-8")
     print("\n".join(results))
