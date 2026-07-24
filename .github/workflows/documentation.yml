@@ -17,12 +17,12 @@ permissions:
   contents: read
 
 concurrency:
-  group: documentation-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
+  group: documentation-${{ github.workflow }}-${{ github.event.pull_request.head.sha || github.sha }}
+  cancel-in-progress: false
 
 jobs:
   build:
-    name: Strict site build
+    name: Strict site and crosswalk validation
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
@@ -30,13 +30,15 @@ jobs:
 
     steps:
       - name: Check out submitted source
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
         with:
           ref: ${{ env.SUBMITTED_SHA }}
           fetch-depth: 1
           persist-credentials: false
 
       - name: Assert immutable source identity
+        id: source
+        continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
@@ -46,24 +48,30 @@ jobs:
           printf 'source_sha=%s\n' "$actual_sha" | tee source-identity.txt
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
           python-version: "3.12"
           cache: pip
 
       - name: Install pinned documentation tooling
+        id: install
+        continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
           python -m pip install --disable-pip-version-check "mkdocs==1.6.1"
           python -m pip freeze | sort | tee documentation-dependencies.txt
 
-      - name: Validate documentation sources and local links
+      - name: Validate documentation sources, crosswalk profile, and local links
+        id: validate
+        continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
           python - <<'PY'
           from __future__ import annotations
+
+          import json
           import re
           from pathlib import Path
           from urllib.parse import unquote
@@ -72,16 +80,80 @@ jobs:
               "README.md", "mkdocs.yml", "taskchain.md", "punchlist.md",
               "release.md", "changelog.md", "docs/index.md",
               "docs/architecture.md", "docs/alistaire-integration.md",
+              "docs/runtime-conformance-boundary-profile.md",
+              "docs/kernel-to-runtime-crosswalk-options.md",
+              "docs/kernel-to-runtime-crosswalk-profile-v1.json",
               "docs/obstruction-and-gluing.md", "docs/design.md",
               "docs/lifecycle.md", "docs/api.md", "docs/onboarding.md",
               "docs/operations.md", "docs/security.md",
               "docs/threat-model.md", "docs/governance.md",
               "docs/adr/0001-kernel-boundaries.md",
               "docs/adr/0002-alistaire-kernel-role.md",
+              "docs/adr/0003-reference-conformance-boundary.md",
+              "docs/adr/0004-kernel-runtime-crosswalk-options.md",
           ]
           missing = [path for path in required if not Path(path).is_file()]
           if missing:
               raise SystemExit(f"missing required documentation: {missing}")
+
+          profile_path = Path("docs/kernel-to-runtime-crosswalk-profile-v1.json")
+          profile = json.loads(profile_path.read_text(encoding="utf-8"))
+          expected_dispositions = {
+              "EXACT", "TRANSFORM", "PROJECT", "UNSUPPORTED", "UNKNOWN", "LOSSY_REJECTED"
+          }
+          expected_options = {
+              "A_EXACT_SEMANTIC_PROFILE",
+              "B_EXPLICIT_PROJECTION_PROFILE",
+              "C_UNSUPPORTED_ROUTE",
+              "D_MIGRATION_SOURCE_PROFILE",
+          }
+          if profile.get("schema_version") != "qsio.kernel-runtime-crosswalk-options.v1":
+              raise SystemExit("unexpected crosswalk schema version")
+          if profile.get("status") != "DOCUMENTED_NOT_SELECTED":
+              raise SystemExit("crosswalk status must remain DOCUMENTED_NOT_SELECTED")
+          if profile.get("safe_default") != "UNSUPPORTED":
+              raise SystemExit("crosswalk safe default must remain UNSUPPORTED")
+          if set(profile.get("mapping_dispositions", [])) != expected_dispositions:
+              raise SystemExit("crosswalk mapping dispositions are incomplete or changed")
+          options = profile.get("candidate_options", [])
+          if {item.get("id") for item in options} != expected_options:
+              raise SystemExit("crosswalk candidate option set is incomplete or changed")
+          selected = [item for item in options if item.get("selection_status") not in {"NOT_SELECTED", "SAFE_DEFAULT"}]
+          if selected:
+              raise SystemExit("documentation candidate may not select an architecture option")
+          denials = profile.get("authority_denials", {})
+          if not denials or any(value is not False for value in denials.values()):
+              raise SystemExit("every crosswalk authority field must remain denied")
+          gap = profile.get("fysa_120", {}).get("proposed_gap", {})
+          if gap.get("id") != "040-N" or gap.get("authoritative") is not False:
+              raise SystemExit("FYSA-120 proposed gap metadata is invalid")
+
+          guide = Path("docs/kernel-to-runtime-crosswalk-options.md").read_text(encoding="utf-8")
+          guide_markers = [
+              "DOCUMENTED_NOT_SELECTED",
+              "A — Exact semantic profile",
+              "B — Explicit projection profile",
+              "C — Unsupported route",
+              "D — Migration-source profile",
+              "EXACT", "TRANSFORM", "PROJECT", "UNSUPPORTED", "UNKNOWN", "LOSSY_REJECTED",
+              "040-N — Fail-closed semantic crosswalk and unsupported-route governance",
+              "This guide changes documentation only",
+          ]
+          absent = [marker for marker in guide_markers if marker not in guide]
+          if absent:
+              raise SystemExit(f"crosswalk guide is missing semantic markers: {absent}")
+
+          controlled = [
+              Path("README.md"), Path("taskchain.md"), Path("punchlist.md"),
+              Path("release.md"), Path("changelog.md"), Path("docs/index.md"),
+              Path("docs/runtime-conformance-boundary-profile.md"),
+              Path("docs/kernel-to-runtime-crosswalk-options.md"),
+              Path("docs/adr/0004-kernel-runtime-crosswalk-options.md"),
+          ]
+          for path in controlled:
+              text = path.read_text(encoding="utf-8")
+              if "UNSUPPORTED" not in text:
+                  raise SystemExit(f"{path} does not preserve the unsupported-route boundary")
 
           pattern = re.compile(r"(?<!!)\[[^\]]+\]\(([^)]+)\)")
           failures = []
@@ -102,12 +174,16 @@ jobs:
                       failures.append(f"{source}: {raw}")
           if failures:
               raise SystemExit("broken local documentation links:\n" + "\n".join(failures))
+
           Path("documentation-source-validation.txt").write_text(
-              "required_files=pass\nlocal_links=pass\n", encoding="utf-8"
+              "required_files=pass\ncrosswalk_profile=pass\nsemantic_boundaries=pass\nlocal_links=pass\n",
+              encoding="utf-8",
           )
           PY
 
       - name: Build documentation strictly
+        id: build
+        continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
@@ -115,6 +191,8 @@ jobs:
           test -f site/index.html
 
       - name: Validate generated-site boundary
+        id: boundary
+        continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
@@ -129,31 +207,67 @@ jobs:
           ! grep -RIlE '(BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY|gh[pousr]_[A-Za-z0-9_]{20,}|sk-[A-Za-z0-9_-]{20,})' site
 
       - name: Record documentation evidence
+        if: always()
         shell: bash
+        env:
+          SOURCE_OUTCOME: ${{ steps.source.outcome }}
+          INSTALL_OUTCOME: ${{ steps.install.outcome }}
+          VALIDATE_OUTCOME: ${{ steps.validate.outcome }}
+          BUILD_OUTCOME: ${{ steps.build.outcome }}
+          BOUNDARY_OUTCOME: ${{ steps.boundary.outcome }}
         run: |
           set -euo pipefail
+          mkdir -p evidence
           {
             printf 'repository=%s\n' "$GITHUB_REPOSITORY"
             printf 'source_sha=%s\n' "$SUBMITTED_SHA"
             printf 'workflow_run=%s\n' "$GITHUB_RUN_ID"
-            printf 'python=%s\n' "$(python --version 2>&1)"
-            printf 'mkdocs=%s\n' "$(mkdocs --version)"
+            printf 'event=%s\n' "$GITHUB_EVENT_NAME"
+            printf 'ref=%s\n' "$GITHUB_REF"
+            printf 'python=%s\n' "$(python --version 2>&1 || true)"
+            printf 'mkdocs=%s\n' "$(mkdocs --version 2>/dev/null || true)"
+            printf 'source_outcome=%s\n' "$SOURCE_OUTCOME"
+            printf 'install_outcome=%s\n' "$INSTALL_OUTCOME"
+            printf 'validate_outcome=%s\n' "$VALIDATE_OUTCOME"
+            printf 'build_outcome=%s\n' "$BUILD_OUTCOME"
+            printf 'boundary_outcome=%s\n' "$BOUNDARY_OUTCOME"
             printf 'generated_utc=%s\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-          } | tee documentation-evidence.txt
-          find site -type f -print0 | sort -z | xargs -0 sha256sum > site-sha256.txt
-          sha256sum documentation-evidence.txt documentation-dependencies.txt documentation-source-validation.txt source-identity.txt site-sha256.txt > evidence-sha256.txt
+          } | tee evidence/documentation-evidence.txt
+          cp -f source-identity.txt evidence/ 2>/dev/null || true
+          cp -f documentation-dependencies.txt evidence/ 2>/dev/null || true
+          cp -f documentation-source-validation.txt evidence/ 2>/dev/null || true
+          cp docs/kernel-to-runtime-crosswalk-profile-v1.json evidence/
+          find site -type f -print0 2>/dev/null | sort -z | xargs -0 -r sha256sum > evidence/site-sha256.txt
+          find evidence -type f ! -name evidence-sha256.txt -print0 | sort -z | xargs -0 sha256sum > evidence/evidence-sha256.txt
 
       - name: Upload rendered site and evidence
-        uses: actions/upload-artifact@v4
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: qsio-kernel-documentation-${{ env.SUBMITTED_SHA }}
           path: |
             site
-            documentation-evidence.txt
-            documentation-dependencies.txt
-            documentation-source-validation.txt
-            source-identity.txt
-            site-sha256.txt
-            evidence-sha256.txt
+            evidence
           if-no-files-found: error
-          retention-days: 14
+          retention-days: 30
+
+      - name: Enforce final fail-closed gate
+        if: always()
+        shell: bash
+        env:
+          SOURCE_OUTCOME: ${{ steps.source.outcome }}
+          INSTALL_OUTCOME: ${{ steps.install.outcome }}
+          VALIDATE_OUTCOME: ${{ steps.validate.outcome }}
+          BUILD_OUTCOME: ${{ steps.build.outcome }}
+          BOUNDARY_OUTCOME: ${{ steps.boundary.outcome }}
+        run: |
+          set -euo pipefail
+          for result in \
+            "$SOURCE_OUTCOME" \
+            "$INSTALL_OUTCOME" \
+            "$VALIDATE_OUTCOME" \
+            "$BUILD_OUTCOME" \
+            "$BOUNDARY_OUTCOME"
+          do
+            test "$result" = "success"
+          done
